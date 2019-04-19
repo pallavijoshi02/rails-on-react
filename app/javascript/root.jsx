@@ -48,7 +48,6 @@ class Root extends React.Component {
     }
   }
 
-
   toggleDrawer = () => {
     this.setState({ drawerOpen: !this.state.drawerOpen })
   }
