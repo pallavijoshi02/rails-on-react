@@ -2,27 +2,51 @@ class UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @users = User.all
-    render json: @users, status: :ok
+    begin
+      @users = User.all
+      render json: { success: "loading...", users: @users }, status: :ok
+    rescue => exception
+      render json: { error: exception.message }, status: :unprocessable_entity
+    end
   end
 
   def show
-    @user = User.find(params[:id])
-    render json: @user, status: :ok
+    begin
+      if User.exists?(id: params[:id])
+        @user = User.find(params[:id])
+        render json: { success: "loading...", user: @user }, status: :ok
+      else
+        render json: { error: "record not found" }, status: :unprocessable_entity
+      end
+    rescue => exception
+      render json: { error: exception.message }, status: :unprocessable_entity
+    end
   end
 
   def create
-    @user = User.new(user_params)
-    @user.save
-    render json: @user, status: :ok
+    begin
+      @user = User.new(user_params)
+      @user.save
+      render json: { success: "record created sucessfully" }, status: :ok
+    rescue => exception
+      render json: { error: exception.message }, status: :unprocessable_entity
+    end
   end
 
-  def distroy
-    @user = User.where(id: params[:id]).first
-    if @user.distroy
-      head(:ok)
-    else
-      head(:unprocessable_entity)
+  def destroy
+    begin
+      if User.exists?(id: params[:id])
+        @user = User.where(id: params[:id]).first
+        if @user.destroy
+          render json: { success: "delete success" }, status: :ok
+        else
+          render json: { error: "record not found" }, status: :unprocessable_entity
+        end
+      else
+        render json: { error: "record not found" }, status: :unprocessable_entity
+      end
+    rescue => exception
+      render json: { error: exception.message }, status: :unprocessable_entity
     end
   end
 
