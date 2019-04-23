@@ -30,7 +30,7 @@ class UsersController < ApplicationController
       if @user.id
         render json: { success: "record created sucessfully", user: @user }, status: :ok
       else
-        render json: { error: "validation error", user: @user.errors.messages }, status: :ok
+        render json: { error: "validation error", messages: @user.errors.messages, full_messages: @user.errors.full_messages }, status: :ok
       end
     rescue => exception
       render json: { error: exception.message }, status: :unprocessable_entity
