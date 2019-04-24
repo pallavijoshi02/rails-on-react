@@ -8,19 +8,13 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-import axios from 'axios';
+import api from './src/api';
 import MUIDataTable from "mui-datatables";
 
 
 const styles = theme => ({
   root: {
     width: '100%',
-    flexGrow: 1,
   },
   grow: {
     flexGrow: 1,
@@ -42,13 +36,6 @@ const styles = theme => ({
 
 const columns = ["Name", "Email", "Contact", "Updated at"];
 
-const data = [
-  ["Joe James", "Test Corp", "Yonkers", "NY"],
-  ["John Walsh", "Test Corp", "Hartford", "CT"],
-  ["Bob Herm", "Test Corp", "Tampa", "FL"],
-  ["James Houston", "Test Corp", "Dallas", "TX"],
-];
-
 const options = {
   filterType: 'checkbox',
 };
@@ -60,7 +47,6 @@ class Root extends React.Component {
     this.state = {
       title: 'React on Rails',
       drawerOpen: false,
-      expanded: null,
       users: []
     }
 
@@ -69,7 +55,7 @@ class Root extends React.Component {
 
   getData() {
     self = this
-    axios.get('/users')
+    api.app.get('/users')
       .then(function (response) {
         // handle success
         console.log(response);
@@ -95,15 +81,8 @@ class Root extends React.Component {
     this.setState({ drawerOpen: !this.state.drawerOpen })
   }
 
-  handleChange = panel => (event, expanded) => {
-    this.setState({
-      expanded: expanded ? panel : false,
-    });
-  };
-
   render() {
     const { classes } = this.props;
-    const { expanded } = this.state;
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -120,9 +99,8 @@ class Root extends React.Component {
           </Toolbar>
         </AppBar>
 
-
         <MUIDataTable
-          title={"Employee List"}
+          title={"Users List"}
           data={this.state.users}
           columns={columns}
           options={options}
