@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import AppTopBar from './src/common/appBar';
 
 import api from './src/api';
 import MUIDataTable from "mui-datatables";
@@ -15,13 +10,6 @@ import MUIDataTable from "mui-datatables";
 const styles = theme => ({
   root: {
     width: '100%',
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -85,19 +73,7 @@ class Root extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
-              {this.state.title}
-            </Typography>
-            <Button color="inherit">About</Button>
-            <Button color="inherit">Contact</Button>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
+        <AppTopBar openDrawer={this.toggleDrawer} />
 
         <MUIDataTable
           title={"Users List"}
@@ -105,7 +81,6 @@ class Root extends React.Component {
           columns={columns}
           options={options}
         />
-
 
       </div>
     )
