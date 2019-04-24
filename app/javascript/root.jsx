@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppTopBar from './src/common/appBar';
+import AppDrawer from './src/common/appDrawer';
 
 import api from './src/api';
 import MUIDataTable from "mui-datatables";
@@ -74,7 +75,7 @@ class Root extends React.Component {
     return (
       <div className={classes.root}>
         <AppTopBar openDrawer={this.toggleDrawer} />
-
+        <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />
         <MUIDataTable
           title={"Users List"}
           data={this.state.users}
