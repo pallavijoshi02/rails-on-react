@@ -13,6 +13,9 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import axios from 'axios';
+import MUIDataTable from "mui-datatables";
+
 
 const styles = theme => ({
   root: {
@@ -37,6 +40,19 @@ const styles = theme => ({
   },
 });
 
+const columns = ["Name", "Email", "Contact", "Updated at"];
+
+const data = [
+  ["Joe James", "Test Corp", "Yonkers", "NY"],
+  ["John Walsh", "Test Corp", "Hartford", "CT"],
+  ["Bob Herm", "Test Corp", "Tampa", "FL"],
+  ["James Houston", "Test Corp", "Dallas", "TX"],
+];
+
+const options = {
+  filterType: 'checkbox',
+};
+
 class Root extends React.Component {
 
   constructor(props) {
@@ -44,8 +60,35 @@ class Root extends React.Component {
     this.state = {
       title: 'React on Rails',
       drawerOpen: false,
-      expanded: null
+      expanded: null,
+      users: []
     }
+
+    this.getData();
+  }
+
+  getData() {
+    self = this
+    axios.get('/users')
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        self.setState({
+          users: response.data.users.map((row) => ([
+            row.name || '',
+            row.email || '',
+            row.contact || '',
+            row.created_at
+          ]))
+        });
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
   }
 
   toggleDrawer = () => {
@@ -78,57 +121,14 @@ class Root extends React.Component {
         </AppBar>
 
 
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>General settings</Typography>
-            <Typography className={classes.secondaryHeading}>I am an expansion panel</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-              maximus est, id dignissim quam.
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Users</Typography>
-            <Typography className={classes.secondaryHeading}>
-              You are currently not an owner
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
-              diam eros in elit. Pellentesque convallis laoreet laoreet.
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Advanced settings</Typography>
-            <Typography className={classes.secondaryHeading}>
-              Filtering has been entirely disabled for whole web server
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas
-              eros, vitae egestas augue. Duis vel est augue.
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel4'} onChange={this.handleChange('panel4')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Personal data</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas
-              eros, vitae egestas augue. Duis vel est augue.
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+        <MUIDataTable
+          title={"Employee List"}
+          data={this.state.users}
+          columns={columns}
+          options={options}
+        />
+
+
       </div>
     )
   }
