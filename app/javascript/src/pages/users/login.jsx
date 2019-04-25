@@ -45,13 +45,12 @@ const styles = theme => ({
     },
 });
 
-class UserForm extends React.Component {
+class LoginForm extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            title: 'Users Form',
-            submitText: 'Update'
+            title: 'Sign In',
         }
     }
 
@@ -61,29 +60,34 @@ class UserForm extends React.Component {
             <main className={classes.main}>
                 <CssBaseline />
                 <Paper className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
                     <Typography component="h1" variant="h5">
                         {this.state.title}
                     </Typography>
                     <form className={classes.form}>
                         <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="name">Name</InputLabel>
-                            <Input id="name" name="name" autoComplete="name" autoFocus />
-                        </FormControl>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="email">Email</InputLabel>
-                            <Input id="email" name="email" autoComplete="email" />
-                        </FormControl>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="contact">Contact</InputLabel>
-                            <Input id="contact" name="contact" autoComplete="contact" />
+                            <InputLabel htmlFor="email">Email Address</InputLabel>
+                            <Input id="email" name="email" autoComplete="email" autoFocus />
                         </FormControl>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="password">Password</InputLabel>
                             <Input name="password" type="password" id="password" autoComplete="current-password" />
                         </FormControl>
-                        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                            {this.state.submitText}
-                        </Button>
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label="Remember me"
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Sign in
+          </Button>
                     </form>
                 </Paper>
             </main>
@@ -91,9 +95,9 @@ class UserForm extends React.Component {
     }
 }
 
-UserForm.propTypes = {
+LoginForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UserForm);
+export default withStyles(styles)(LoginForm);
 
