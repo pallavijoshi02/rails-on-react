@@ -27,14 +27,14 @@ class Root extends React.Component {
     super(props)
     this.state = {
       title: 'React on Rails',
-      drawerOpen: false,
+      drawerOpen: false,    
     }
-
   }
 
   toggleDrawer = () => {
     this.setState({ drawerOpen: !this.state.drawerOpen })
   }
+  
 
   render() {
     const { classes } = this.props;

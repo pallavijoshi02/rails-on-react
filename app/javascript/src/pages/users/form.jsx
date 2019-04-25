@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
@@ -75,7 +76,6 @@ class UserForm extends React.Component {
         event.stopPropagation();
 
         if (this.validateForm()) {
-
             const method = 'post'
             const url = `/users`
             var self = this;
@@ -89,7 +89,19 @@ class UserForm extends React.Component {
                     },
                 }
             }).then((resp) => {
-
+                if (resp.data.error != '') {
+                    let errors = {};
+                    // self.setState({
+                    //     errors: errors
+                    // });
+                    errors.name = resp.data.messages.name[0] ? resp.data.messages.name[0] : '';
+                    errors.email = resp.data.messages.email[0] ? resp.data.messages.email[0] : '';
+                    errors.contact = resp.data.messages.contact[0] ? resp.data.messages.contact[0] : '';
+                    errors.password = resp.data.messages.password[0] ? resp.data.messages.password[0] : '';
+                    self.setState({
+                        errors: errors,
+                    });
+                }
             }).catch((err) => {
 
             })
@@ -137,7 +149,7 @@ class UserForm extends React.Component {
                     <Typography component="h1" variant="h5">
                         {this.state.title}
                     </Typography>
-                    <form className={classes.form} noValidate validated={validated} onSubmit={this.handleSubmit}>
+                    <form className={classes.form} noValidate validated={validated.toString()} onSubmit={this.handleSubmit}>
 
                         <FormControl margin="normal" required fullWidth error={this.state.errors.name ? true : false}>
                             <InputLabel htmlFor="name">Name</InputLabel>
