@@ -2,6 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from 'react-router-dom';
+
+// redux
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import appState from './redux/reducers';
+const store = createStore(appState)
+
 import AppRoutes from './appRoutes';
 import AppTopBar from './src/common/appBar';
 import AppDrawer from './src/common/appDrawer';
@@ -27,25 +34,26 @@ class Root extends React.Component {
     super(props)
     this.state = {
       title: 'React on Rails',
-      drawerOpen: false,    
+      drawerOpen: false,
     }
   }
 
   toggleDrawer = () => {
     this.setState({ drawerOpen: !this.state.drawerOpen })
   }
-  
 
   render() {
     const { classes } = this.props;
     return (
-      <Router basename='/dashboard'>
-        <div className={classes.root}>
-          <AppTopBar openDrawer={this.toggleDrawer} />
-          <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />
-          <AppRoutes />
-        </div>
-      </Router>
+      <Provider store={store}>
+        <Router basename='/dashboard'>
+          <div className={classes.root}>
+            <AppTopBar openDrawer={this.toggleDrawer} />
+            <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />
+            <AppRoutes />
+          </div>
+        </Router>
+      </Provider>
     )
   }
 }
