@@ -1,5 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {
+    showLoader, pushError, pushSuccess,
+} from '../../../redux/actions';
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
@@ -89,21 +94,32 @@ class UserForm extends React.Component {
                     },
                 }
             }).then((resp) => {
-                if (resp.data.error != '') {
-                    let errors = {};
-                    // self.setState({
-                    //     errors: errors
-                    // });
-                    errors.name = resp.data.messages.name[0] ? resp.data.messages.name[0] : '';
-                    errors.email = resp.data.messages.email[0] ? resp.data.messages.email[0] : '';
-                    errors.contact = resp.data.messages.contact[0] ? resp.data.messages.contact[0] : '';
-                    errors.password = resp.data.messages.password[0] ? resp.data.messages.password[0] : '';
-                    self.setState({
-                        errors: errors,
-                    });
+                this.props.pushSuccess(resp.success, { hideLoader: true })
+                if (resp.status == 200) {
+                    this.props.history.push('/');
                 }
-            }).catch((err) => {
 
+            }).catch((err) => {
+                let errors = {};
+                this.setState({
+                    errors: errors
+                });
+                if (err.response.data.messages.name != undefined) {
+                    errors.name = err.response.data.messages.name[0];
+                }
+                if (err.response.data.messages.email != undefined) {
+                    errors.email = err.response.data.messages.email[0];
+                }
+                if (err.response.data.messages.contact != undefined) {
+                    errors.contact = err.response.data.messages.contact[0];
+                }
+                if (err.response.data.messages.password != undefined) {
+                    errors.password = err.response.data.messages.password[0];
+                }
+                this.setState({
+                    errors: errors,
+                });
+                this.props.pushError(api.parseError(err), { hideLoader: true })
             })
         } else {
             this.setState({ validated: true });
@@ -189,5 +205,16 @@ UserForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UserForm);
 
+const mapStateToProps = (state) => ({})
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        showLoader: () => dispatch(showLoader()),
+        pushSuccess: (msg, args) => dispatch(pushSuccess(msg, args)),
+        pushError: (msg, args) => dispatch(pushError(msg, args))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+    withStyles(styles)(UserForm));

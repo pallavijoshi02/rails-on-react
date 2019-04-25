@@ -1,66 +1,68 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-
+import { connect } from 'react-redux'
+import {
+    Snackbar, IconButton
+} from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close'
+import SuccessIcon from '@material-ui/icons/CheckCircle'
+import ErrorIcon from '@material-ui/icons/BugReport'
+import InfoIcon from '@material-ui/icons/Help'
+import { FLASH_ERROR, FLASH_SUCCESS, popFlash } from '../../redux/actions'
+import withStyles from '@material-ui/core/styles/withStyles';
 const styles = theme => ({
     close: {
         padding: theme.spacing.unit / 2,
     },
 });
 
-class Flash extends React.Component {
 
+const icon_classes = 'muted mr-3'
+
+const flashBGClass = (mode) => {
+    if (mode === FLASH_ERROR)
+        return 'bg-red-a100'
+    if (mode === FLASH_SUCCESS)
+        return 'bg-green-a100'
+    return 'bg-bgrey-50'
+}
+
+const FlashIcon = (props) => {
+    const { mode } = props
+    if (mode === FLASH_ERROR)
+        return (<ErrorIcon className={icon_classes} />)
+    if (mode === FLASH_SUCCESS)
+        return (<SuccessIcon className={icon_classes} />)
+    return (<InfoIcon className={icon_classes} />)
+}
+
+class Flash extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            open: false,
-        };
     }
-
-    handleClickOpen = () => {
-        this.setState({ open: true });
-    };
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            open: nextProps.isOpen,
-        })
-    }
-
-    handleClose = () => {
-        this.setState({ open: false });
-    };
-
     render() {
-        const { classes, message } = this.props
+        const { msgId, flash } = this.props
+        const { msg, mode } = (flash || {})
+        const open = !!flash
 
         return (
-            <Snackbar
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-                open={this.state.open}
-                autoHideDuration={6000}
-                onClose={this.handleClose}
-                ContentProps={{
-                    'aria-describedby': 'message-id',
-                }}
-                message={<span id="message-id">{message}</span>}
+            <Snackbar disableWindowBlurListener key={msgId}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                autoHideDuration={3000}
+                open={open}
+                onClose={this.props.onDismiss}
+                message={<span id="message-id"><FlashIcon mode={mode} />{msg}</span>}
                 action={[
-                    <IconButton
-                        key="close"
-                        aria-label="Close"
-                        color="inherit"
-                        className={classes.close}
-                        onClick={this.handleClose}
-                    >
+                    <IconButton key="close"
+                        aria-label="Close" color="inherit"
+                        onClick={this.props.onDismiss}>
                         <CloseIcon />
-                    </IconButton>,
-                ]}
+                    </IconButton>
+                ]} ContentProps={{
+                    classes: {
+                        root: `w-mx100 flex-nowrap text-dark ${flashBGClass(mode)}`,
+                    }
+                }}
             />
         )
     }
@@ -71,5 +73,23 @@ Flash.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Flash);
+const mapStateToProps = state => {
+    return {
+        msgId: state.errors.currentId,
+        flash: state.errors.flash
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onDismiss: () => {
+            dispatch(popFlash())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+    withStyles(styles)(Flash));
+
+
 
