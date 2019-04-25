@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './appRoutes';
 import AppTopBar from './src/common/appBar';
 import AppDrawer from './src/common/appDrawer';
-
-import UserList from './src/pages/users/index';
 
 const styles = theme => ({
   root: {
@@ -39,14 +39,15 @@ class Root extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <AppTopBar openDrawer={this.toggleDrawer} />
-        <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />
-        <UserList />
-      </div>
+      <Router basename='/'>
+        <div className={classes.root}>
+          <AppTopBar openDrawer={this.toggleDrawer} />
+          <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />
+          <AppRoutes />
+        </div>
+      </Router>
     )
   }
-
 }
 
 Root.propTypes = {
