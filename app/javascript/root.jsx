@@ -4,9 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import AppTopBar from './src/common/appBar';
 import AppDrawer from './src/common/appDrawer';
 
-import api from './src/api';
-import MUIDataTable from "mui-datatables";
-
+import UserList from './src/pages/users/index';
 
 const styles = theme => ({
   root: {
@@ -23,12 +21,6 @@ const styles = theme => ({
   },
 });
 
-const columns = ["Name", "Email", "Contact", "Updated at"];
-
-const options = {
-  filterType: 'checkbox',
-};
-
 class Root extends React.Component {
 
   constructor(props) {
@@ -36,34 +28,8 @@ class Root extends React.Component {
     this.state = {
       title: 'React on Rails',
       drawerOpen: false,
-      users: []
     }
 
-    this.getData();
-  }
-
-  getData() {
-    self = this
-    api.app.get('/users')
-      .then(function (response) {
-        // handle success
-        console.log(response);
-        self.setState({
-          users: response.data.users.map((row) => ([
-            row.name || '',
-            row.email || '',
-            row.contact || '',
-            row.created_at
-          ]))
-        });
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
   }
 
   toggleDrawer = () => {
@@ -76,13 +42,7 @@ class Root extends React.Component {
       <div className={classes.root}>
         <AppTopBar openDrawer={this.toggleDrawer} />
         <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />
-        <MUIDataTable
-          title={"Users List"}
-          data={this.state.users}
-          columns={columns}
-          options={options}
-        />
-
+        <UserList />
       </div>
     )
   }
