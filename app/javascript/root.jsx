@@ -39,7 +39,7 @@ class Root extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Router basename='/'>
+      <Router basename='/dashboard'>
         <div className={classes.root}>
           <AppTopBar openDrawer={this.toggleDrawer} />
           <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />

@@ -9,6 +9,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import { NavLink } from 'react-router-dom';
 
 const styles = {
     list: {
@@ -31,12 +32,15 @@ class AppDrawer extends React.Component {
             <div className={classes.list}>
                 <Drawer open={open} onClose={onClose}>
                     <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
+                        <ListItem button key={'User List'} component={NavLink} to={'/'} exact onClick={onClose}>
+                            <ListItemIcon><InboxIcon /></ListItemIcon>
+                            <ListItemText primary={'User List'} />
+                        </ListItem>
+                        <ListItem button key={'User Form'} component={NavLink} to={'/user-form'} exact onClick={onClose}>
+                            <ListItemIcon><MailIcon /></ListItemIcon>
+                            <ListItemText primary={'User Form'} />
+                        </ListItem>
+
                     </List>
                     <Divider />
                     <List>
