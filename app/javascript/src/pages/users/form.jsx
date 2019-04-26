@@ -63,7 +63,9 @@ class UserForm extends React.Component {
             errors: {},
             user: []
         }
-        this.getData();
+        if (this.isEdit) {
+            this.getData();
+        }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -77,7 +79,6 @@ class UserForm extends React.Component {
         let fields = this.state.fields;
         api.app.get('/users/' + this.getId)
             .then(function (response) {
-                console.log(response)
                 fields['name'] = response.data.user.name
                 fields['email'] = response.data.user.email
                 fields['contact'] = response.data.user.contact
@@ -128,7 +129,7 @@ class UserForm extends React.Component {
             api.app({
                 method, url, data: formData
             }).then((resp) => {
-                this.props.pushSuccess(resp.success, { hideLoader: true })
+                this.props.pushSuccess(resp.data.success, { hideLoader: true })
                 if (resp.status == 200) {
                     this.props.history.push('/');
                 }
@@ -246,7 +247,6 @@ class UserForm extends React.Component {
 UserForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-
 
 const mapStateToProps = (state) => ({})
 
