@@ -122,7 +122,8 @@ class UserForm extends React.Component {
             formData.append("user[contact]", this.state.fields.contact)
             formData.append("user[password]", this.state.fields.password)
 
-            const url = `/users`;
+            const url = `/users${this.isNew ? '' : `/${this.getId}`}`
+
             var self = this;
             api.app({
                 method, url, data: formData

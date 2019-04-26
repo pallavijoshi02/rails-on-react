@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:index, :show, :create, :destroy]
+  skip_before_action :verify_authenticity_token, only: [:index, :show, :create, :update, :destroy]
 
   def index
     begin
@@ -39,10 +39,9 @@ class UsersController < ApplicationController
 
   def update
     begin
-      @user = User.new(user_params)
-      @user.update
-      if @user.id
-        render json: { success: "record update sucessfully", user: @user }, status: :ok
+      @user = User.find(params[:id])
+      if @user.update_to(params[:name][:email][:contact])
+        render json: { success: "record update sucessfully" }, status: :ok
       else
         render json: { error: "validation error", messages: @user.errors.messages, full_messages: @user.errors.full_messages }, status: :unprocessable_entity
       end
