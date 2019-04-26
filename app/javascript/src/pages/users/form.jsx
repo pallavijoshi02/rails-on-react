@@ -60,10 +60,35 @@ class UserForm extends React.Component {
             submitText: 'Update',
             validated: false,
             fields: {},
-            errors: {}
+            errors: {},
+            user: []
         }
+        this.getData();
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    get getId() { return this.props.match.params.id || 'new' }
+    get isNew() { return this.getId === 'new' }
+    get isEdit() { return this.getId !== 'new' }
+
+    getData() {
+        self = this
+        api.app.get('/users/' + this.getId)
+            .then(function (response) {
+                console.log(response)
+                // handle success                
+                self.setState({
+                    fields: response.data.user
+                });
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always executed
+            });
     }
 
     handleInputChange(event) {
@@ -84,18 +109,18 @@ class UserForm extends React.Component {
         event.stopPropagation();
 
         if (this.validateForm()) {
-            const method = 'post'
-            const url = `/users`
+            const method = this.isNew ? 'post' : 'put';
+
+            const formData = new FormData();
+            formData.append("user[name]", this.state.fields.name)
+            formData.append("user[email]", this.state.fields.email)
+            formData.append("user[contact]", this.state.fields.contact)
+            formData.append("user[password]", this.state.fields.password)
+
+            const url = `/users`;
             var self = this;
             api.app({
-                method, url, data: {
-                    user: {
-                        name: this.state.fields.name,
-                        email: this.state.fields.email,
-                        contact: this.state.fields.contact,
-                        password: this.state.fields.password,
-                    },
-                }
+                method, url, data: formData
             }).then((resp) => {
                 this.props.pushSuccess(resp.success, { hideLoader: true })
                 if (resp.status == 200) {

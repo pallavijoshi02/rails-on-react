@@ -11,7 +11,7 @@ class AppRoutes extends React.Component {
             <React.Fragment>
                 <Switch>
                     <Route exact path='/' component={UserList} />
-                    <Route path='/user-form' component={UserForm} />
+                    <Route path='/user-form/new' component={UserForm} />
                     <Route path='/user-form/:id' component={UserForm} />
                     <Route path='/user-view/:id' component={UserView} />
                 </Switch>

@@ -12,7 +12,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/Inbox';
 import EmailIcon from '@material-ui/icons/Email';
-import EmailIcon from '@material-ui/icons/';
+import MobileFriendlyIcon from '@material-ui/icons/MobileFriendly';
 
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -101,6 +101,12 @@ class UserView extends React.Component {
                                 <EmailIcon />
                             </ListItemIcon>
                             <ListItemText primary={this.state.user.email} />
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <MobileFriendlyIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={this.state.user.contact} />
                         </ListItem>
                     </List>
                 </Paper>
