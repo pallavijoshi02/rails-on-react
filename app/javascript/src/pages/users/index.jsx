@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import api from '../../api/index';
-import MUIDataTable from "mui-datatables";
+import MUIDataTable from 'mui-datatables';
+import ViewIcon from '@material-ui/icons/Visibility';
+import EditIcon from '@material-ui/icons/Edit';
+import { IconButton } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -10,7 +14,27 @@ const styles = theme => ({
     },
 });
 
-const columns = ["Name", "Email", "Contact", "Updated at"];
+const COL_NAME = { name: 'Name', options: { sort: true, filter: true } }
+const COL_EMAIL = { name: 'Email', options: { sort: true, filter: true } }
+const COL_CONTACT = { name: 'Contact', options: { sort: true, filter: true } }
+const COL_UAT = { name: 'Updated at', options: { sort: true, filter: true } }
+const COL_ACTION = {
+    name: 'Action', options: {
+        sort: false, filter: false,
+        customBodyRender: (data) => {
+            const viewPath = `/user-view/${data.id}`
+            const editPath = `/user-form/${data.id}`
+            return (
+                <React.Fragment>
+                    <IconButton component={Link} to={viewPath}><ViewIcon /></IconButton>
+                    <IconButton component={Link} to={editPath}><EditIcon /></IconButton>
+                </React.Fragment>
+            );
+        }
+    }
+}
+
+const columns = [COL_NAME, COL_EMAIL, COL_CONTACT, COL_UAT, COL_ACTION];
 
 const options = {
     filterType: 'checkbox',
@@ -33,14 +57,14 @@ class UserList extends React.Component {
         self = this
         api.app.get('/users')
             .then(function (response) {
-                // handle success
-                console.log(response);
+                // handle success                
                 self.setState({
                     users: response.data.users.map((row) => ([
                         row.name || '',
                         row.email || '',
                         row.contact || '',
-                        row.created_at
+                        row.created_at,
+                        { id: row.id },
                     ]))
                 });
             })
