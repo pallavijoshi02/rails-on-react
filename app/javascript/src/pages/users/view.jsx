@@ -74,7 +74,7 @@ class UserView extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, history } = this.props;
         console.log(this.state)
         return (
             <main className={classes.main}>
