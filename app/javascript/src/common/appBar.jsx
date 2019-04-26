@@ -45,8 +45,7 @@ class AppTopBar extends React.Component {
                     <Typography variant="h6" color="inherit" className={classes.grow}>
                         {this.state.title}
                     </Typography>
-                    <Button color="inherit">About</Button>
-                    <Button color="inherit">Contact</Button>
+                    
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>

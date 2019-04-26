@@ -14,6 +14,8 @@ const columns = ["Name", "Email", "Contact", "Updated at"];
 
 const options = {
     filterType: 'checkbox',
+    responsive: 'stacked',
+    filterType: 'multiselect'
 };
 
 class UserList extends React.Component {
