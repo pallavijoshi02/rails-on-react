@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_secure_password
   validates :name, presence: true, length: { minimum: 2 }
   validates :contact, uniqueness: true, if: -> { contact.present? }
   validates :password, length: { in: 6..20 }
@@ -6,12 +7,12 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: /\A[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\z/, message: "format is not correct" }, if: -> { email.present? }
 
   PASSWORD_FORMAT = /\A
-  (?=.{8,})          # Must contain 8 or more characters
-  (?=.*\d)           # Must contain a digit
-  (?=.*[a-z])        # Must contain a lower case character
-  (?=.*[A-Z])        # Must contain an upper case character
-  (?=.*[[:^alnum:]]) # Must contain a symbol
-/x
+    (?=.{8,})          # Must contain 8 or more characters
+    (?=.*\d)           # Must contain a digit
+    (?=.*[a-z])        # Must contain a lower case character
+    (?=.*[A-Z])        # Must contain an upper case character
+    (?=.*[[:^alnum:]]) # Must contain a symbol
+  /x
 
   validates :password,
     presence: true,
