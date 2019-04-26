@@ -37,6 +37,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    begin
+      @user = User.new(user_params)
+      @user.update
+      if @user.id
+        render json: { success: "record update sucessfully", user: @user }, status: :ok
+      else
+        render json: { error: "validation error", messages: @user.errors.messages, full_messages: @user.errors.full_messages }, status: :unprocessable_entity
+      end
+    rescue => exception
+      render json: { error: exception.message }, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     begin
       if User.exists?(id: params[:id])

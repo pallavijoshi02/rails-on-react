@@ -74,12 +74,17 @@ class UserForm extends React.Component {
 
     getData() {
         self = this
+        let fields = this.state.fields;
         api.app.get('/users/' + this.getId)
             .then(function (response) {
                 console.log(response)
+                fields['name'] = response.data.user.name
+                fields['email'] = response.data.user.email
+                fields['contact'] = response.data.user.contact
                 // handle success                
                 self.setState({
-                    fields: response.data.user
+                    fields,
+                    errors: []
                 });
             })
             .catch(function (error) {
