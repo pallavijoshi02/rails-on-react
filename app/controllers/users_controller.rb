@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   def update
     begin
       @user = User.find(params[:id])
-      if @user.update_to(params[:name][:email][:contact])
+      if @user.update_attributes(user_params)
         render json: { success: "record update sucessfully" }, status: :ok
       else
         render json: { error: "validation error", messages: @user.errors.messages, full_messages: @user.errors.full_messages }, status: :unprocessable_entity

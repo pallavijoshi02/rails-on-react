@@ -36,11 +36,10 @@ class AppDrawer extends React.Component {
                             <ListItemIcon><InboxIcon /></ListItemIcon>
                             <ListItemText primary={'User List'} />
                         </ListItem>
-                        <ListItem button key={'User Form'} component={NavLink} to={'/user-form'} exact onClick={onClose}>
+                        <ListItem button key={'User Form'} component={NavLink} to={'/user-form/new'} exact onClick={onClose}>
                             <ListItemIcon><MailIcon /></ListItemIcon>
                             <ListItemText primary={'User Form'} />
                         </ListItem>
-
                     </List>
                     <Divider />
                     <List>
