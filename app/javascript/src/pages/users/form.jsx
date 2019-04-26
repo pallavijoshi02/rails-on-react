@@ -5,7 +5,10 @@ import {
     showLoader, pushError, pushSuccess,
 } from '../../../redux/actions';
 
+import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import BackIcon from '@material-ui/icons/ArrowBack';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -156,15 +159,23 @@ class UserForm extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, history } = this.props;
         const { validated } = this.state;
         return (
             <main className={classes.main}>
                 <CssBaseline />
                 <Paper className={classes.paper}>
-                    <Typography component="h1" variant="h5">
-                        {this.state.title}
-                    </Typography>
+
+                    <Toolbar className='w-100'>
+                        <IconButton onClick={history.goBack}>
+                            <BackIcon /></IconButton>
+                        <Typography component="h1" variant="h5">
+                            {this.state.title}
+                        </Typography>
+                        <div className='flex-grow-1' />
+                    </Toolbar>
+
+
                     <form className={classes.form} noValidate validated={validated.toString()} onSubmit={this.handleSubmit}>
 
                         <FormControl margin="normal" required fullWidth error={this.state.errors.name ? true : false}>
