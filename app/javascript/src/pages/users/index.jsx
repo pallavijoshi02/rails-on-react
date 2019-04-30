@@ -7,6 +7,7 @@ import ViewIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import { IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import CustomDTableToolbar from '../../common/customDTableToolbar';
 
 const styles = theme => ({
     root: {
@@ -35,12 +36,6 @@ const COL_ACTIONS = (view, edit) => ({
 });
 
 const columns = [COL_NAME, COL_EMAIL, COL_CONTACT, COL_UAT, COL_ACTIONS(true, true)];
-
-const options = {
-    filterType: 'checkbox',
-    responsive: 'stacked',
-    filterType: 'multiselect'
-};
 
 class UserList extends React.Component {
 
@@ -77,7 +72,24 @@ class UserList extends React.Component {
             });
     }
 
+    addRecord() {
+        this.props.history.push('/user-form/new');
+    }
+
     render() {
+        const options = {
+            filter: true,
+            filterType: 'multiselect',
+            selectableRows: true,
+            responsive: 'stacked',
+            rowsPerPage: 10,
+            customToolbar: () => {
+                return (
+                    <CustomDTableToolbar addRecord={() => { this.addRecord() }} />
+                );
+            }
+        };
+
         const { classes } = this.props;
         return (
             <div className={classes.root}>
