@@ -215,7 +215,6 @@ class UserForm extends React.Component {
                         <div className='flex-grow-1' />
                     </Toolbar>
 
-
                     <form className={classes.form} noValidate validated={validated.toString()} onSubmit={this.handleSubmit}>
 
                         <FormControl margin="normal" required fullWidth error={this.state.errors.name ? true : false}>

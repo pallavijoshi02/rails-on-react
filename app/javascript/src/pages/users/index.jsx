@@ -102,8 +102,10 @@ class UserList extends React.Component {
     deleteRecord(selectedRows) {
         if (selectedRows.data.length) {
             selectedRows.data.map((data) => {
-                this.deleteData(this.state.users[data.dataIndex].id);
+                this.deleteData(this.state.users[data.dataIndex].id);                
             });
+
+            this.props.history.push('/users');
         }
     }
 
