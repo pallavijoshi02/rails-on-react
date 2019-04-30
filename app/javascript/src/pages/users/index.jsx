@@ -18,7 +18,7 @@ const COL_NAME = { name: 'Name', options: { sort: true, filter: true } }
 const COL_EMAIL = { name: 'Email', options: { sort: true, filter: true } }
 const COL_CONTACT = { name: 'Contact', options: { sort: true, filter: true } }
 const COL_UAT = { name: 'Updated at', options: { sort: true, filter: true } }
-const COL_ACTION = {
+const COL_ACTIONS = (view, edit) => ({
     name: 'Action', options: {
         sort: false, filter: false,
         customBodyRender: (data) => {
@@ -26,15 +26,15 @@ const COL_ACTION = {
             const editPath = `/user-form/${data.id}`
             return (
                 <React.Fragment>
-                    <IconButton component={Link} to={viewPath}><ViewIcon /></IconButton>
-                    <IconButton component={Link} to={editPath}><EditIcon /></IconButton>
+                    {view && <IconButton component={Link} to={viewPath}><ViewIcon /></IconButton>}
+                    {edit && <IconButton component={Link} to={editPath}><EditIcon /></IconButton>}
                 </React.Fragment>
             );
         }
     }
-}
+});
 
-const columns = [COL_NAME, COL_EMAIL, COL_CONTACT, COL_UAT, COL_ACTION];
+const columns = [COL_NAME, COL_EMAIL, COL_CONTACT, COL_UAT, COL_ACTIONS(true, true)];
 
 const options = {
     filterType: 'checkbox',

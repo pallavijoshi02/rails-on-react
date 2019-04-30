@@ -10,10 +10,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { NavLink } from 'react-router-dom';
+import { DrawerWidth } from '../helper/constants';
 
 const styles = {
     list: {
-        width: 250,
+        width: DrawerWidth,
     },
     fullList: {
         width: 'auto',
