@@ -9,7 +9,8 @@ import ViewIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import { IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import CustomDTableToolbar from '../../common/customDTableToolbar';
+import CustomToolbar from '../../common/customToolbar';
+import CustomToolbarSelect from '../../common/customToolbarSelect';
 
 const styles = theme => ({
     root: {
@@ -78,6 +79,10 @@ class UserList extends React.Component {
         this.props.history.push('/user-form/new');
     }
 
+    deleteRecord(selectedRows) {
+        console.log('delete call', selectedRows)
+    }
+
     render() {
         const options = {
             filter: true,
@@ -87,9 +92,12 @@ class UserList extends React.Component {
             rowsPerPage: 10,
             customToolbar: () => {
                 return (
-                    <CustomDTableToolbar addRecord={() => { this.addRecord() }} />
+                    <CustomToolbar addRecord={() => { this.addRecord }} />
                 );
-            }
+            },
+            customToolbarSelect: selectedRows => (
+                <CustomToolbarSelect deleteRecord={() => { this.deleteRecord(selectedRows) }} />
+            )
         };
 
         const { classes } = this.props;

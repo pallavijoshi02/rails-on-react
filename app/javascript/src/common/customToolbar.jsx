@@ -9,7 +9,7 @@ const defaultToolbarStyles = {
     },
 };
 
-class CustomDTableToolbar extends React.Component {
+class CustomToolbar extends React.Component {
 
     render() {
         const { classes, addRecord } = this.props;
@@ -25,4 +25,4 @@ class CustomDTableToolbar extends React.Component {
     }
 }
 
-export default withStyles(defaultToolbarStyles)(CustomDTableToolbar);
+export default withStyles(defaultToolbarStyles)(CustomToolbar);
