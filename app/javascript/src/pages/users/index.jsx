@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import api from '../../api/index';
 import MUIDataTable from 'mui-datatables';
@@ -108,5 +110,5 @@ UserList.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UserList);
+export default withRouter(connect()(withStyles(styles)(UserList)));
 

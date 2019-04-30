@@ -51,6 +51,13 @@ const styles = theme => ({
     },
 });
 
+const FIELDS = {
+    name: '',
+    email: '',
+    contact: '',
+    password: ''
+}
+
 class UserForm extends React.Component {
 
     constructor(props) {
@@ -59,8 +66,8 @@ class UserForm extends React.Component {
             title: 'Users Form',
             submitText: 'Update',
             validated: false,
-            fields: {},
-            errors: {},
+            fields: FIELDS,
+            errors: FIELDS,
             user: []
         }
         if (this.isEdit) {
@@ -191,7 +198,7 @@ class UserForm extends React.Component {
     }
 
     render() {
-        const { classes, history } = this.props;
+        const { classes } = this.props;
         const { validated } = this.state;
         return (
             <main className={classes.main}>
@@ -199,8 +206,9 @@ class UserForm extends React.Component {
                 <Paper className={classes.paper}>
 
                     <Toolbar className='w-100'>
-                        <IconButton onClick={history.goBack}>
-                            <BackIcon /></IconButton>
+                        <IconButton onClick={this.props.history.goBack}>
+                            <BackIcon />
+                        </IconButton>
                         <Typography component="h1" variant="h5">
                             {this.state.title}
                         </Typography>

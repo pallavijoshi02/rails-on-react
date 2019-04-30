@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import {
     showLoader, pushError, pushSuccess,
 } from '../../../redux/actions';
-
-
+import { withRouter } from 'react-router-dom'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -74,15 +73,15 @@ class UserView extends React.Component {
     }
 
     render() {
-        const { classes, history } = this.props;
-        console.log(this.state)
+        const { classes } = this.props;
         return (
             <main className={classes.main}>
                 <CssBaseline />
                 <Paper className={classes.paper}>
                     <Toolbar className='w-100'>
-                        <IconButton onClick={history.goBack}>
-                            <BackIcon /></IconButton>
+                        <IconButton onClick={this.props.history.goBack}>
+                            <BackIcon />
+                        </IconButton>
                         <Typography component="h1" variant="h5">
                             {this.state.title}
                         </Typography>
@@ -119,5 +118,4 @@ UserView.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UserView);
-
+export default withRouter(connect()(withStyles(styles)(UserView)))
