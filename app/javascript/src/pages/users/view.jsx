@@ -82,7 +82,8 @@ class UserView extends React.Component {
                         <IconButton onClick={this.props.history.goBack}>
                             <BackIcon />
                         </IconButton>
-                        <Typography component="h1" variant="h5">
+                        <div className='flex-grow-1' />
+                        <Typography component="h1" variant="h5" className='px-0 px-md-3'>
                             {this.state.title}
                         </Typography>
                         <div className='flex-grow-1' />

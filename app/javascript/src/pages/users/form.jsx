@@ -51,30 +51,36 @@ const styles = theme => ({
     },
 });
 
-const FIELDS = {
+const INITIAL_FIELDS = {
     name: '',
     email: '',
     contact: '',
     password: ''
 }
 
+const INITIAL_STATE = {
+    title: 'Users Form',
+    submitText: 'Update',
+    validated: false,
+    fields: INITIAL_FIELDS,
+    errors: INITIAL_FIELDS,
+    user: []
+}
+
 class UserForm extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            title: 'Users Form',
-            submitText: 'Update',
-            validated: false,
-            fields: FIELDS,
-            errors: FIELDS,
-            user: []
-        }
+        this.state = { ...INITIAL_STATE };
         if (this.isEdit) {
             this.getData();
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount(){
+        this.state = { ...INITIAL_STATE };
     }
 
     get getId() { return this.props.match.params.id || 'new' }
@@ -200,6 +206,8 @@ class UserForm extends React.Component {
     render() {
         const { classes } = this.props;
         const { validated } = this.state;
+
+        console.log(this.state)
         return (
             <main className={classes.main}>
                 <CssBaseline />
@@ -209,6 +217,7 @@ class UserForm extends React.Component {
                         <IconButton onClick={this.props.history.goBack}>
                             <BackIcon />
                         </IconButton>
+                        <div className='flex-grow-1' />
                         <Typography component="h1" variant="h5">
                             {this.state.title}
                         </Typography>
