@@ -57,13 +57,7 @@ class UserList extends React.Component {
             .then(function (response) {
                 // handle success                
                 self.setState({
-                    users: response.data.users.map((row) => ([
-                        row.name || '',
-                        row.email || '',
-                        row.contact || '',
-                        row.created_at,
-                        { id: row.id },
-                    ]))
+                    users: response.data.users
                 });
             })
             .catch(function (error) {
@@ -75,13 +69,42 @@ class UserList extends React.Component {
             });
     }
 
+    deleteData(id) {
+        self = this
+        api.app.delete('/users/' + id)
+            .then(function (response) {
+                // handle success     
+                console.log(response);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always executed
+            });
+    }
+
+    bindData() {
+        return this.state.users.map((row) => ([
+            row.name || '',
+            row.email || '',
+            row.contact || '',
+            row.created_at,
+            { id: row.id },
+        ]));
+    }
+
     addRecord() {
         this.props.history.push('/user-form/new');
     }
 
     deleteRecord(selectedRows) {
-        console.log(this.state.users)
-        console.log('delete call', selectedRows)
+        if (selectedRows.data.length) {
+            selectedRows.data.map((data) => {
+                this.deleteData(this.state.users[data.dataIndex].id);
+            });
+        }
     }
 
     render() {
@@ -106,7 +129,7 @@ class UserList extends React.Component {
             <div className={classes.root}>
                 <MUIDataTable
                     title={this.state.title}
-                    data={this.state.users}
+                    data={this.bindData()}
                     columns={columns}
                     options={options}
                 />
