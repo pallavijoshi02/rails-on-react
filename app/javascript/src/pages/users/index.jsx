@@ -80,6 +80,7 @@ class UserList extends React.Component {
     }
 
     deleteRecord(selectedRows) {
+        console.log(this.state.users)
         console.log('delete call', selectedRows)
     }
 
@@ -92,7 +93,7 @@ class UserList extends React.Component {
             rowsPerPage: 10,
             customToolbar: () => {
                 return (
-                    <CustomToolbar addRecord={() => { this.addRecord }} />
+                    <CustomToolbar addRecord={() => { this.addRecord() }} />
                 );
             },
             customToolbarSelect: selectedRows => (
