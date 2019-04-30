@@ -11,6 +11,7 @@ import { IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import CustomToolbar from '../../common/customToolbar';
 import CustomToolbarSelect from '../../common/customToolbarSelect';
+import moment from 'moment';
 
 const styles = theme => ({
     root: {
@@ -90,7 +91,7 @@ class UserList extends React.Component {
             row.name || '',
             row.email || '',
             row.contact || '',
-            row.created_at,
+            moment(row.created_at).format('D MMM YYYY'),
             { id: row.id },
         ]));
     }
@@ -102,9 +103,8 @@ class UserList extends React.Component {
     deleteRecord(selectedRows) {
         if (selectedRows.data.length) {
             selectedRows.data.map((data) => {
-                this.deleteData(this.state.users[data.dataIndex].id);                
+                this.deleteData(this.state.users[data.dataIndex].id);
             });
-
             this.props.history.push('/users');
         }
     }
