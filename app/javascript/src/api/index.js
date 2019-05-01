@@ -26,9 +26,7 @@ class API {
     }
 
     logout = () => {
-        // FIXME this is a pathetic hack
-        // document.getElementById('_logout').submit()
-        sessionStorage.removeItem('auth_user');
+        currentUser.logout();
         window.location.replace(window.location.origin);
     }
 

@@ -20,6 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import api from '../../api/index';
+import currentUser from '../../helper/auth';
 
 const styles = theme => ({
     main: {
@@ -105,26 +106,14 @@ class LoginForm extends React.Component {
             api.login({
                 method, url, data: formData
             }).then((resp) => {
-                this.props.pushSuccess(resp.data.success, { hideLoader: true })
+                this.props.pushSuccess('login sucessfully', { hideLoader: true })
                 if (resp.status == 200) {
-                    sessionStorage.setItem('access_token', resp.data.access_token);
-                    this.props.history.push('/users');
+                    currentUser.access_token = resp.data.access_token;
+                    // this.props.history.push('/users');
+                    window.location.replace('/users')
                 }
 
             }).catch((err) => {
-                let errors = {};
-                this.setState({
-                    errors: errors
-                });
-                if (err.response.data.errors.username != undefined) {
-                    errors.username = err.response.data.errors.username[0];
-                }
-                if (err.response.data.errors.password != undefined) {
-                    errors.password = err.response.data.errors.password[0];
-                }
-                this.setState({
-                    errors: errors,
-                });
                 this.props.pushError(api.parseError(err), { hideLoader: true })
             })
         } else {

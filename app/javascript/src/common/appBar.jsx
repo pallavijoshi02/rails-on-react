@@ -8,6 +8,12 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { DrawerWidth } from '../helper/constants';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+import api from '../api/index';
+
 
 const styles = theme => ({
     grow: {
@@ -25,17 +31,36 @@ const styles = theme => ({
     },
 });
 
+
+const ITEM_HEIGHT = 48;
+
 class AppTopBar extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
             title: 'React on Rails',
+            anchorEl: null,
         }
     }
 
+    handleClick = event => {
+        this.setState({ anchorEl: event.currentTarget });
+    };
+
+    handleClose = () => {
+        this.setState({ anchorEl: null });
+    };
+
+    logout = () => {
+        this.setState({ anchorEl: null });
+        api.logout();
+    };
+
     render() {
         const { classes, openDrawer } = this.props
+        const { anchorEl } = this.state;
+        const open = Boolean(anchorEl);
         return (
             <AppBar position="static">
                 <Toolbar>
@@ -45,8 +70,30 @@ class AppTopBar extends React.Component {
                     <Typography variant="h6" color="inherit" className={classes.grow}>
                         {this.state.title}
                     </Typography>
-                    
-                    <Button color="inherit">Login</Button>
+
+                    <IconButton
+                        aria-label="More"
+                        aria-owns={open ? 'long-menu' : undefined}
+                        aria-haspopup="true"
+                        onClick={this.handleClick}
+                    >
+                        <MoreVertIcon />
+                    </IconButton>
+
+                    <Menu
+                        id="long-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={this.handleClose}
+                        PaperProps={{
+                            style: {
+                                maxHeight: ITEM_HEIGHT * 4.5,
+                                width: 200,
+                            },
+                        }}
+                    >
+                        <MenuItem onClick={this.logout}>Logout</MenuItem>
+                    </Menu>
                 </Toolbar>
             </AppBar>
         )
