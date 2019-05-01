@@ -1,4 +1,5 @@
 import axios from 'axios'
+import currentUser from '../helper/auth';
 axios.defaults.withCredentials = true;
 
 class API {
@@ -6,9 +7,19 @@ class API {
         this._app = null
     }
 
+    get login() {
+        if (!this._lapp) {
+            this._lapp = axios.create({
+            })
+        }
+        return this._lapp
+    }
     get app() {
         if (!this._app) {
             this._app = axios.create({
+                headers: {
+                    'Authorization': currentUser.access_token
+                }
             })
         }
         return this._app

@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import UserList from './src/pages/users/index';
 import UserForm from './src/pages/users/form';
 import UserView from './src/pages/users/view';
+import Login from './src/pages/users/login';
 import Flash from './src/common/flash';
 
 class AppRoutes extends React.Component {
@@ -10,7 +11,7 @@ class AppRoutes extends React.Component {
         return (
             <React.Fragment>
                 <Switch>
-                    <Route exact path='/' component={UserList} />
+                    <Route exact path='/' component={Login} />
                     <Route path='/users' component={UserList} />
                     <Route path='/user-form/new' component={UserForm} />
                     <Route path='/user-form/:id' component={UserForm} />

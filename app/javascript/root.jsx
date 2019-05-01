@@ -13,6 +13,8 @@ import AppRoutes from './appRoutes';
 import AppTopBar from './src/common/appBar';
 import AppDrawer from './src/common/appDrawer';
 
+import currentUser from './src/helper/auth';
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -48,8 +50,8 @@ class Root extends React.Component {
       <Provider store={store}>
         <Router basename='/dashboard'>
           <div className={classes.root}>
-            <AppTopBar openDrawer={this.toggleDrawer} />
-            <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />
+            {currentUser.access_token && <AppTopBar openDrawer={this.toggleDrawer} />}
+            {currentUser.access_token && <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />}
             <AppRoutes />
           </div>
         </Router>
