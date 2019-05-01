@@ -5,6 +5,22 @@ import UserForm from './src/pages/users/form';
 import UserView from './src/pages/users/view';
 import Login from './src/pages/users/login';
 import Flash from './src/common/flash';
+import currentUser from './src/helper/auth';
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+        currentUser.access_token != null
+            ?
+            <Component {...props} />
+            :
+            <Redirect
+                to={{
+                    pathname: "/",
+                    state: { from: props.location }
+                }}
+            />
+    )} />
+)
 
 class AppRoutes extends React.Component {
     render() {
@@ -12,11 +28,11 @@ class AppRoutes extends React.Component {
             <React.Fragment>
                 <Switch>
                     <Route exact path='/' component={Login} />
-                    <Route path='/dashboard' component={UserList} />
-                    <Route path='/users' component={UserList} />
-                    <Route path='/user-form/new' component={UserForm} />
-                    <Route path='/user-form/:id' component={UserForm} />
-                    <Route path='/user-view/:id' component={UserView} />
+                    <PrivateRoute path='/dashboard' component={UserList} />
+                    <PrivateRoute path='/users' component={UserList} />
+                    <PrivateRoute path='/user-form/new' component={UserForm} />
+                    <PrivateRoute path='/user-form/:id' component={UserForm} />
+                    <PrivateRoute path='/user-view/:id' component={UserView} />
                 </Switch>
                 <Flash />
             </React.Fragment>
