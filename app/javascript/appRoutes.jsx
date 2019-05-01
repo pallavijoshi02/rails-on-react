@@ -28,7 +28,7 @@ class AppRoutes extends React.Component {
             <React.Fragment>
                 <Switch>
                     {!currentUser.access_token && <Redirect exact from='/' to='/login' />}
-                    {currentUser.access_token && <Redirect exact from='/' to='/' />}
+                    {currentUser.access_token && <Redirect exact from='/' to='/dashboard' />}
                     <Route path='/login' component={Login} />
                     <PrivateRoute path='/dashboard' component={UserList} />
                     <PrivateRoute path='/users' component={UserList} />

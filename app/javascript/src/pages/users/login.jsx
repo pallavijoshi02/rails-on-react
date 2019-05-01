@@ -110,7 +110,7 @@ class LoginForm extends React.Component {
                 if (resp.status == 200) {
                     currentUser.access_token = resp.data.access_token;
                     // this.props.history.push('/users');
-                    window.location.replace('/dashboard')
+                    window.location.replace('/users')
                 }
 
             }).catch((err) => {
