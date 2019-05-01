@@ -33,7 +33,7 @@ class AppDrawer extends React.Component {
             <div className={classes.list}>
                 <Drawer open={open} onClose={onClose}>
                     <List>
-                        <ListItem button key={'User List'} component={NavLink} to={'/'} exact onClick={onClose}>
+                        <ListItem button key={'User List'} component={NavLink} to={'/users'} exact onClick={onClose}>
                             <ListItemIcon><InboxIcon /></ListItemIcon>
                             <ListItemText primary={'User List'} />
                         </ListItem>
