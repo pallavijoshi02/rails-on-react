@@ -66,3 +66,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bcrypt'
 gem 'jwt'
 gem 'simple_command'
+
+
+gem 'rails-i18n'
+gem 'i18n-js'
