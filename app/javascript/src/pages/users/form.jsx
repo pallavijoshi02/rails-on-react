@@ -71,21 +71,12 @@ class UserForm extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { ...INITIAL_STATE };
-        console.log(this.isEdit)
+        this.state = { ...INITIAL_STATE };        
         if (this.isEdit) {
             this.getData();
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    componentDidUpdate(){
-        this.state = { ...INITIAL_STATE };
-    }
-
-    componentDidMount(){
-        this.state = { ...INITIAL_STATE };
     }
 
     get getId() { return this.props.match.params.id || 'new' }
