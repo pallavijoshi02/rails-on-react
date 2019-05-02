@@ -30,7 +30,7 @@ class API {
         window.location.replace(window.location.origin);
     }
 
-    parseError = (e) => {
+    parseError = (e) => {        
         try {
             if (!!e && !!e.response && !!e.response.data) {
                 if (!!e.response.data.error) {
@@ -41,7 +41,10 @@ class API {
                 }
                 if (!!e.response.data.errors) {
                     return e.response.data.errors[0]
-                }
+                }                
+                if (!!e.response.data.errors.errors) {
+                    return e.response.data.errors.errors[0]
+                }                
             }
         } catch (err) {
             console.error(err)

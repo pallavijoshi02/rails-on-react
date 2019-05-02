@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
     showLoader, pushError, pushSuccess,
-} from '../../../redux/actions';
+} from '../../redux/actions';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -19,8 +19,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import api from '../../api/index';
-import currentUser from '../../helper/auth';
+import api from '../api/index';
+import currentUser from '../helper/auth';
 
 const styles = theme => ({
     main: {
@@ -110,7 +110,7 @@ class LoginForm extends React.Component {
                 if (resp.status == 200) {
                     currentUser.access_token = resp.data.access_token;
                     // this.props.history.push('/users');
-                    window.location.replace('/users')
+                    window.location.replace('/dashboard')
                 }
 
             }).catch((err) => {

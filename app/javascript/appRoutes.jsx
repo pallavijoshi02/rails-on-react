@@ -3,7 +3,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import UserList from './src/pages/users/index';
 import UserForm from './src/pages/users/form';
 import UserView from './src/pages/users/view';
-import Login from './src/pages/users/login';
+import Login from './src/pages/login';
+import Dashboard from './src/pages/dashboard';
 import Flash from './src/common/flash';
 import currentUser from './src/helper/auth';
 
@@ -30,7 +31,7 @@ class AppRoutes extends React.Component {
                     {!currentUser.access_token && <Redirect exact from='/' to='/login' />}
                     {currentUser.access_token && <Redirect exact from='/' to='/dashboard' />}
                     <Route path='/login' component={Login} />
-                    <PrivateRoute path='/dashboard' component={UserList} />
+                    <PrivateRoute path='/dashboard' component={Dashboard} />
                     <PrivateRoute path='/users' component={UserList} />
                     <PrivateRoute path='/user-form/new' component={UserForm} />
                     <PrivateRoute path='/user-form/:id' component={UserForm} />
