@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import api from '../../api/index';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import MUIDataTable from 'mui-datatables';
 import ViewIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
@@ -14,8 +15,9 @@ import CustomToolbarSelect from '../../common/customToolbarSelect';
 import moment from 'moment';
 
 const styles = theme => ({
-    root: {
-        width: '100%',
+    main: {
+        width: 'auto',
+        display: 'block', // Fix IE 11 issue.        
     },
 });
 
@@ -128,14 +130,15 @@ class UserList extends React.Component {
 
         const { classes } = this.props;
         return (
-            <div className={classes.root}>
+            <main className={classes.main}>
+                <CssBaseline />
                 <MUIDataTable
                     title={this.state.title}
                     data={this.bindData()}
                     columns={columns}
                     options={options}
                 />
-            </div>
+            </main>
         )
     }
 }

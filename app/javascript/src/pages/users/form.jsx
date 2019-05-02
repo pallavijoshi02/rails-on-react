@@ -72,11 +72,16 @@ class UserForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = { ...INITIAL_STATE };
+        console.log(this.isEdit)
         if (this.isEdit) {
             this.getData();
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidUpdate(){
+        this.state = { ...INITIAL_STATE };
     }
 
     componentDidMount(){
