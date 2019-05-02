@@ -144,7 +144,7 @@ class UserForm extends React.Component {
             }).then((resp) => {
                 this.props.pushSuccess(resp.data.success, { hideLoader: true })
                 if (resp.status == 200) {
-                    this.props.history.push('/');
+                    this.props.history.push('/users');
                 }
 
             }).catch((err) => {
@@ -205,9 +205,7 @@ class UserForm extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { validated } = this.state;
-
-        console.log(this.state)
+        const { validated } = this.state;        
         return (
             <main className={classes.main}>
                 <CssBaseline />
