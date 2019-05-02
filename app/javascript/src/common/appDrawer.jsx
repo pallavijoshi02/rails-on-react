@@ -33,23 +33,25 @@ class AppDrawer extends React.Component {
             <div className={classes.list}>
                 <Drawer open={open} onClose={onClose}>
                     <List>
-                        <ListItem button key={'User List'} component={NavLink} to={'/users'} exact onClick={onClose}>
+                        <ListItem button key={'Users'} component={NavLink} to={'/users'} exact onClick={onClose}>
                             <ListItemIcon><InboxIcon /></ListItemIcon>
-                            <ListItemText primary={'User List'} />
+                            <ListItemText primary={'Users'} />
                         </ListItem>
-                        <ListItem button key={'User Form'} component={NavLink} to={'/user-form/new'} exact onClick={onClose}>
+                        <ListItem button key={'New User'} component={NavLink} to={'/user-form/new'} exact onClick={onClose}>
                             <ListItemIcon><MailIcon /></ListItemIcon>
-                            <ListItemText primary={'User Form'} />
+                            <ListItemText primary={'New User'} />
                         </ListItem>
                     </List>
                     <Divider />
                     <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
+                        <ListItem button key={'User Groups'} component={NavLink} to={'/user-groups'} exact onClick={onClose}>
+                            <ListItemIcon><InboxIcon /></ListItemIcon>
+                            <ListItemText primary={'User Groups'} />
+                        </ListItem>
+                        <ListItem button key={'New User Group'} component={NavLink} to={'/user-group-form/new'} exact onClick={onClose}>
+                            <ListItemIcon><MailIcon /></ListItemIcon>
+                            <ListItemText primary={'New User Group'} />
+                        </ListItem>
                     </List>
                 </Drawer>
             </div>

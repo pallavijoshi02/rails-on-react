@@ -4,7 +4,7 @@ class UserGroupsController < ApplicationController
   def index    
     begin
       @user_groups = UserGroup.all
-      render json: { success: "loading...", user_groups: @user_groups }, status: :ok
+      render json: { success: "loading...", results: @user_groups }, status: :ok
     rescue => exception
       render json: { error: exception.message }, status: :unprocessable_entity
     end
@@ -15,7 +15,7 @@ class UserGroupsController < ApplicationController
     begin
       if UserGroup.exists?(id: params[:id])
         @user_group = UserGroup.find(params[:id])
-        render json: { success: "loading...", user_group: @user_group }, status: :ok
+        render json: { success: "loading...", result: @user_group }, status: :ok
       else
         render json: { error: "record not found" }, status: :unprocessable_entity
       end
@@ -29,7 +29,7 @@ class UserGroupsController < ApplicationController
       @user_group = UserGroup.new(user_group_params)
       @user_group.save
       if @user_group.id
-        render json: { success: "record created sucessfully", user_group: @user_group }, status: :ok
+        render json: { success: "record created sucessfully", result: @user_group }, status: :ok
       else
         render json: { error: "validation error", messages: @user.errors.messages, full_messages: @user.errors.full_messages }, status: :unprocessable_entity
       end
