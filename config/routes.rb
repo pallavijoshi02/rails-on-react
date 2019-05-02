@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :user_groups
   resources :users
   get "home/index"
   root to: "home#index"
