@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def index
     begin
       @users = User.all
-      render json: { success: "loading...", users: @users }, status: :ok
+      render json: { success: I18n.t('loading'), users: @users }, status: :ok
     rescue => exception
       render json: { error: exception.message }, status: :unprocessable_entity
     end

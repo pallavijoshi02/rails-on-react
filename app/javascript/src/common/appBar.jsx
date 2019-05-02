@@ -38,8 +38,8 @@ class AppTopBar extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            title: 'React on Rails',
+        this.state = {            
+            title: I18n.t('title'),
             anchorEl: null,
         }
     }
