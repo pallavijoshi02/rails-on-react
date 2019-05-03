@@ -33,26 +33,16 @@ class AppDrawer extends React.Component {
             <div className={classes.list}>
                 <Drawer open={open} onClose={onClose}>
                     <List>
-                        <ListItem button key={'Users'} component={NavLink} to={'/users'} exact onClick={onClose}>
+                        <ListItem button key={I18n.t('menu.user_groups')} component={NavLink} to={'/user-groups'} exact onClick={onClose}>
                             <ListItemIcon><InboxIcon /></ListItemIcon>
-                            <ListItemText primary={'Users'} />
+                            <ListItemText primary={I18n.t('menu.user_groups')} />
                         </ListItem>
-                        <ListItem button key={'New User'} component={NavLink} to={'/user-form/new'} exact onClick={onClose}>
-                            <ListItemIcon><MailIcon /></ListItemIcon>
-                            <ListItemText primary={'New User'} />
+                        <ListItem button key={I18n.t('menu.users')} component={NavLink} to={'/users'} exact onClick={onClose}>
+                            <ListItemIcon><InboxIcon /></ListItemIcon>
+                            <ListItemText primary={I18n.t('menu.users')} />
                         </ListItem>
                     </List>
-                    <Divider />
-                    <List>
-                        <ListItem button key={'User Groups'} component={NavLink} to={'/user-groups'} exact onClick={onClose}>
-                            <ListItemIcon><InboxIcon /></ListItemIcon>
-                            <ListItemText primary={'User Groups'} />
-                        </ListItem>
-                        <ListItem button key={'New User Group'} component={NavLink} to={'/user-group-form/new'} exact onClick={onClose}>
-                            <ListItemIcon><MailIcon /></ListItemIcon>
-                            <ListItemText primary={'New User Group'} />
-                        </ListItem>
-                    </List>
+                    <Divider />                    
                 </Drawer>
             </div>
         )

@@ -23,7 +23,7 @@ class CustomToolbarSelect extends React.Component {
 
         return (
             <React.Fragment>
-                <Tooltip title={"delete"}>
+                <Tooltip title={I18n.t('actions.delete')}>
                     <IconButton className={classes.iconButton} onClick={deleteRecord}>
                         <DeleteIcon className={classes.deleteIcon} />
                     </IconButton>

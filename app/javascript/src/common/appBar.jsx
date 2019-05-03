@@ -92,7 +92,7 @@ class AppTopBar extends React.Component {
                             },
                         }}
                     >
-                        <MenuItem onClick={this.logout}>Logout</MenuItem>
+                        <MenuItem onClick={this.logout}>{I18n.t('account.logout')}</MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>

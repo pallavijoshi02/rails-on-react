@@ -15,7 +15,7 @@ class CustomToolbar extends React.Component {
         const { classes, addRecord } = this.props;
         return (
             <React.Fragment>
-                <Tooltip title={'Add'}>
+                <Tooltip title={I18n.t('actions.add')}>
                     <IconButton className={classes.iconButton} onClick={addRecord}>
                         <AddIcon />
                     </IconButton>

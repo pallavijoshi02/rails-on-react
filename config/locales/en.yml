@@ -31,4 +31,19 @@
 
 en:
   title: React on Rails
-  loading: Loading...
+  processing:
+    loading: Loading...
+  menu:
+    user_groups: User Groups
+    users: Users
+  actions:
+    add: Add  
+    edit: Edit  
+    delete: Delete
+  account:
+    login: Log In
+    logout: Logout
+  common:       
+    name: Name
+    email: Email
+    contact: Contact
