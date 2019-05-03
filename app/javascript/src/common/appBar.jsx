@@ -11,6 +11,7 @@ import { DrawerWidth } from '../helper/constants';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import LangIcon from '@material-ui/icons/Language';
 
 import api from '../api/index';
 
@@ -40,15 +41,24 @@ class AppTopBar extends React.Component {
         super(props)
         this.state = {
             anchorEl: null,
+            anchorLangEl: null,
         }
     }
 
-    handleClick = event => {
+    handleUserMenuClick = event => {
         this.setState({ anchorEl: event.currentTarget });
     };
 
-    handleClose = () => {
+    handleUserMenuClose = () => {
         this.setState({ anchorEl: null });
+    };
+
+    handleLangMenuClick = event => {
+        this.setState({ anchorLangEl: event.currentTarget });
+    };
+
+    handleLangMenuClose = () => {
+        this.setState({ anchorLangEl: null });
     };
 
     logout = () => {
@@ -58,8 +68,9 @@ class AppTopBar extends React.Component {
 
     render() {
         const { classes, openDrawer } = this.props
-        const { anchorEl } = this.state;
+        const { anchorEl, anchorLangEl } = this.state;
         const open = Boolean(anchorEl);
+        const langOpen = Boolean(anchorLangEl);
         return (
             <AppBar position="static">
                 <Toolbar>
@@ -74,7 +85,7 @@ class AppTopBar extends React.Component {
                         aria-label="More"
                         aria-owns={open ? 'long-menu' : undefined}
                         aria-haspopup="true"
-                        onClick={this.handleClick}
+                        onClick={this.handleUserMenuClick}
                     >
                         <MoreVertIcon />
                     </IconButton>
@@ -83,7 +94,7 @@ class AppTopBar extends React.Component {
                         id="long-menu"
                         anchorEl={anchorEl}
                         open={open}
-                        onClose={this.handleClose}
+                        onClose={this.handleUserMenuClose}
                         PaperProps={{
                             style: {
                                 maxHeight: ITEM_HEIGHT * 4.5,
@@ -92,6 +103,32 @@ class AppTopBar extends React.Component {
                         }}
                     >
                         <MenuItem onClick={this.logout}>{I18n.t('appbar.logout')}</MenuItem>
+                    </Menu>
+
+
+                    <IconButton
+                        aria-label="More"
+                        aria-owns={langOpen ? 'lang-menu' : undefined}
+                        aria-haspopup="true"
+                        onClick={this.handleLangMenuClick}
+                    >
+                        <LangIcon />
+                    </IconButton>
+
+                    <Menu
+                        id="lang-menu"
+                        anchorEl={anchorLangEl}
+                        open={langOpen}
+                        onClose={this.handleLangMenuClose}
+                        PaperProps={{
+                            style: {
+                                maxHeight: ITEM_HEIGHT * 4.5,
+                                width: 200,
+                            },
+                        }}
+                    >
+                        <MenuItem><span className="flag-icon flag-icon-gr"></span> En</MenuItem>
+                        <MenuItem>Fr</MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>
