@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-    before_action :authenticate_request
-    attr_reader :current_user
-    before_action :set_locale
+    
+    before_action :set_locale,:authenticate_request
+    attr_reader :current_user    
 
     private  
     def set_locale

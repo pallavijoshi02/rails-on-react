@@ -35,7 +35,7 @@ en:
     fr: Français
   appbar:
     heading: Réagir sur les rails
-    logout: Logout
+    logout: Connectez - Out
   processing:
     loading: Loading...
   menu:

@@ -43,6 +43,8 @@ class AppTopBar extends React.Component {
             langMenuAnchorEl: null,
             userMenuAnchorEl: null,
         }
+        console.log(I18n.locale)
+        console.log(I18n.currentLocale())
     }
 
     changeLocale = (e) => {
