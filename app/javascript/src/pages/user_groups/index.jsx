@@ -21,8 +21,8 @@ const styles = theme => ({
     },
 });
 
-const COL_NAME = { name: 'Name', options: { sort: true, filter: true } }
-const COL_UAT = { name: 'Updated at', options: { sort: true, filter: true } }
+const COL_NAME = { name: I18n.t('user_group.index.name'), options: { sort: true, filter: true } }
+const COL_UAT = { name: I18n.t('user_group.index.updated_at'), options: { sort: true, filter: true } }
 const COL_ACTIONS = (view, edit) => ({
     name: 'Action', options: {
         sort: false, filter: false,
@@ -46,7 +46,6 @@ class UserGroupList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            title: 'User Groups List',
             results: []
         }
         this.getData();
@@ -88,7 +87,7 @@ class UserGroupList extends React.Component {
 
     bindData() {
         return this.state.results.map((row) => ([
-            row.name || '',            
+            row.name || '',
             moment(row.created_at).format('D MMM YYYY'),
             { id: row.id },
         ]));
@@ -129,7 +128,7 @@ class UserGroupList extends React.Component {
             <main className={classes.main}>
                 <CssBaseline />
                 <MUIDataTable
-                    title={this.state.title}
+                    title={I18n.t('user_group.index.heading')}
                     data={this.bindData()}
                     columns={columns}
                     options={options}

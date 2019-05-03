@@ -59,9 +59,7 @@ const INITIAL_FIELDS = {
     password: ''
 }
 
-const INITIAL_STATE = {
-    title: 'Sign In',
-    submitText: 'Sign In',
+const INITIAL_STATE = {    
     validated: false,
     fields: INITIAL_FIELDS,
     errors: INITIAL_FIELDS,
@@ -106,7 +104,7 @@ class LoginForm extends React.Component {
             api.login({
                 method, url, data: formData
             }).then((resp) => {
-                this.props.pushSuccess('login sucessfully', { hideLoader: true })
+                this.props.pushSuccess(I18n.t('login.sucess'), { hideLoader: true })
                 if (resp.status == 200) {
                     currentUser.access_token = resp.data.access_token;
                     // this.props.history.push('/users');
@@ -130,11 +128,11 @@ class LoginForm extends React.Component {
         });
         if (!fields["username"] || fields["username"].trim() == '') {
             formIsValid = false;
-            errors["username"] = 'please enter username';
+            errors["username"] = I18n.t('login.errors.username');
         }
         if (!fields["password"] || fields["password"].trim() == '') {
             formIsValid = false;
-            errors["password"] = 'please enter password';
+            errors["password"] = I18n.t('login.errors.password');
         }
         this.setState({
             errors: errors
@@ -155,18 +153,18 @@ class LoginForm extends React.Component {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        {this.state.title}
+                        {I18n.t('login.heading')}
                     </Typography>
                     <form className={classes.form} noValidate validated={validated.toString()} onSubmit={this.handleSubmit}>
 
                         <FormControl margin="normal" required fullWidth error={this.state.errors.username ? true : false}>
-                            <InputLabel htmlFor="username">Username</InputLabel>
+                            <InputLabel htmlFor="username">{I18n.t('login.fields.username')}</InputLabel>
                             <Input id="username" name="username" autoComplete="username" autoFocus value={this.state.fields.username} onChange={this.handleInputChange} />
                             {this.state.errors.username && <FormHelperText>{this.state.errors.username}</FormHelperText>}
                         </FormControl>
 
                         <FormControl margin="normal" required fullWidth error={this.state.errors.password ? true : false}>
-                            <InputLabel htmlFor="password">Password</InputLabel>
+                            <InputLabel htmlFor="password">{I18n.t('login.fields.password')}</InputLabel>
                             <Input name="password" type="password" id="password" autoComplete="current-password" value={this.state.fields.password} onChange={this.handleInputChange} />
                             {this.state.errors.password && <FormHelperText>{this.state.errors.password}</FormHelperText>}
                         </FormControl>
@@ -177,7 +175,7 @@ class LoginForm extends React.Component {
                         /> */}
 
                         <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                            {this.state.submitText}
+                            {I18n.t('login.submit')}
                         </Button>
                     </form>
                 </Paper>

@@ -29,21 +29,72 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
-  title: React on Rails
+en:  
+  appbar:
+    heading: React on Rails
+    logout: Logout
   processing:
     loading: Loading...
   menu:
     user_groups: User Groups
-    users: Users
+    users: Users  
+  dashboard:
+    heading: Dashboard    
   actions:
-    add: Add  
-    edit: Edit  
+    add: Add
+    edit: Edit
     delete: Delete
-  account:
-    login: Log In
-    logout: Logout
-  common:       
-    name: Name
-    email: Email
-    contact: Contact
+  login:  
+    heading: Login
+    submit: Login
+    sucess: Login successfully
+    fields:
+      username: Username
+      password: Password
+    errors:
+      username: Please enter username
+      password: Please enter password  
+  user_group:
+    index:
+      heading: User Groups
+      name: Name
+      updated_at: Updated at
+    view:
+      heading: Show User Group
+    form:
+      new:
+        heading: Add User Group
+        submit: Add 
+      edit: 
+        heading: Edit User Group
+        submit: Update
+      fields:
+        name: Name        
+      errors:
+        name: Please enter name
+  user:
+    index:
+      heading: Users
+      name: Name
+      email: Email
+      contact: Contact
+      updated_at: Updated at
+    view:
+      heading: Show User
+    form:
+      new:
+        heading: Add User
+        submit: Add
+      edit:
+        heading: Edit User
+        submit: Update
+      fields:
+        name: Name
+        email: Email
+        contact: Contact
+        password: Password
+      errors:
+        name: Please enter name
+        email: Please enter email
+        contact: Please enter contact
+        password: Please enter password

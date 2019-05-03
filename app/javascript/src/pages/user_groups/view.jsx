@@ -47,8 +47,7 @@ class UserGroupView extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            title: 'User Groups View',
+        this.state = {            
             result: []
         }
         this.getData();
@@ -84,7 +83,7 @@ class UserGroupView extends React.Component {
                         </IconButton>
                         <div className='flex-grow-1' />
                         <Typography component="h1" variant="h5" className='px-0 px-md-3'>
-                            {this.state.title}
+                            {I18n.t('user_group.view.heading')}
                         </Typography>
                         <div className='flex-grow-1' />
                     </Toolbar>

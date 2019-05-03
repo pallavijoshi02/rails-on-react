@@ -56,9 +56,7 @@ const INITIAL_FIELDS = {
     permision: ''
 }
 
-const INITIAL_STATE = {
-    title: 'User Groups Form',
-    submitText: 'Update',
+const INITIAL_STATE = {    
     validated: false,
     fields: INITIAL_FIELDS,
     errors: INITIAL_FIELDS,
@@ -165,7 +163,7 @@ class UserGroupForm extends React.Component {
         });
         if (!fields["name"] || fields["name"].trim() == '') {
             formIsValid = false;
-            errors["name"] = 'please enter name';
+            errors["name"] = I18n.t('user_group.form.errors.name');
         }
         this.setState({
             errors: errors
@@ -187,7 +185,7 @@ class UserGroupForm extends React.Component {
                         </IconButton>
                         <div className='flex-grow-1' />
                         <Typography component="h1" variant="h5">
-                            {this.state.title}
+                            {this.isEdit ? I18n.t('user_group.form.edit.heading') : I18n.t('user_group.form.new.heading')}
                         </Typography>
                         <div className='flex-grow-1' />
                     </Toolbar>
@@ -195,13 +193,13 @@ class UserGroupForm extends React.Component {
                     <form className={classes.form} noValidate validated={validated.toString()} onSubmit={this.handleSubmit}>
 
                         <FormControl margin="normal" required fullWidth error={this.state.errors.name ? true : false}>
-                            <InputLabel htmlFor="name">Name</InputLabel>
+                            <InputLabel htmlFor="name">{I18n.t('user_group.form.fields.name')}</InputLabel>
                             <Input id="name" name="name" autoComplete="name" autoFocus value={this.state.fields.name} onChange={this.handleInputChange} />
                             {this.state.errors.name && <FormHelperText>{this.state.errors.name}</FormHelperText>}
                         </FormControl>
 
                         <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                            {this.state.submitText}
+                            {this.isEdit ? I18n.t('user_group.form.new.submit') : I18n.t('user_group.form.edit.submit')}
                         </Button>
                     </form>
                 </Paper>

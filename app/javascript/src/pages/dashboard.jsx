@@ -5,22 +5,10 @@ import {
     showLoader, pushError, pushSuccess,
 } from '../../redux/actions';
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-
-import api from '../api/index';
-import currentUser from '../helper/auth';
 
 const styles = theme => ({
     main: {
@@ -44,8 +32,7 @@ const styles = theme => ({
 });
 
 
-const INITIAL_STATE = {
-    title: 'Dashboard',    
+const INITIAL_STATE = {    
 }
 
 class Dashboard extends React.Component {
@@ -62,7 +49,7 @@ class Dashboard extends React.Component {
                 <CssBaseline />
                 <Paper className={classes.paper}>
                     <Typography component="h1" variant="h5">
-                        {this.state.title}
+                    {I18n.t('dashboard.heading')}
                     </Typography>
                 </Paper>
             </main>

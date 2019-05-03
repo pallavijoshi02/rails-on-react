@@ -21,10 +21,10 @@ const styles = theme => ({
     },
 });
 
-const COL_NAME = { name: 'Name', options: { sort: true, filter: true } }
-const COL_EMAIL = { name: 'Email', options: { sort: true, filter: true } }
-const COL_CONTACT = { name: 'Contact', options: { sort: true, filter: true } }
-const COL_UAT = { name: 'Updated at', options: { sort: true, filter: true } }
+const COL_NAME = { name: I18n.t('user.index.name'), options: { sort: true, filter: true } }
+const COL_EMAIL = { name: I18n.t('user.index.email'), options: { sort: true, filter: true } }
+const COL_CONTACT = { name: I18n.t('user.index.contact'), options: { sort: true, filter: true } }
+const COL_UAT = { name: I18n.t('user.index.updated_at'), options: { sort: true, filter: true } }
 const COL_ACTIONS = (view, edit) => ({
     name: 'Action', options: {
         sort: false, filter: false,
@@ -47,8 +47,7 @@ class UserList extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            title: 'Users List',
+        this.state = {            
             users: []
         }
         this.getData();
@@ -133,7 +132,7 @@ class UserList extends React.Component {
             <main className={classes.main}>
                 <CssBaseline />
                 <MUIDataTable
-                    title={this.state.title}
+                    title={I18n.t('user.index.heading')}
                     data={this.bindData()}
                     columns={columns}
                     options={options}

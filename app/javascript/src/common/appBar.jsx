@@ -38,8 +38,7 @@ class AppTopBar extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {            
-            title: I18n.t('title'),
+        this.state = {
             anchorEl: null,
         }
     }
@@ -68,7 +67,7 @@ class AppTopBar extends React.Component {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" color="inherit" className={classes.grow}>
-                        {this.state.title}
+                        {I18n.t('appbar.heading')}
                     </Typography>
 
                     <IconButton
@@ -92,7 +91,7 @@ class AppTopBar extends React.Component {
                             },
                         }}
                     >
-                        <MenuItem onClick={this.logout}>{I18n.t('account.logout')}</MenuItem>
+                        <MenuItem onClick={this.logout}>{I18n.t('appbar.logout')}</MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>

@@ -47,8 +47,7 @@ class UserView extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            title: 'Users View',
+        this.state = {            
             user: []
         }
         this.getData();
@@ -84,7 +83,7 @@ class UserView extends React.Component {
                         </IconButton>
                         <div className='flex-grow-1' />
                         <Typography component="h1" variant="h5" className='px-0 px-md-3'>
-                            {this.state.title}
+                            {I18n.t('user.view.heading')}
                         </Typography>
                         <div className='flex-grow-1' />
                     </Toolbar>

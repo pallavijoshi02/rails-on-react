@@ -179,19 +179,19 @@ class UserForm extends React.Component {
         });
         if (!fields["name"] || fields["name"].trim() == '') {
             formIsValid = false;
-            errors["name"] = 'please enter name';
+            errors["name"] = I18n.t('user.form.errors.name');
         }
         if (!fields["contact"] || fields["contact"].trim() == '') {
             formIsValid = false;
-            errors["contact"] = 'please enter contact';
+            errors["contact"] = I18n.t('user.form.errors.contact');
         }
         if (!fields["password"] || fields["password"].trim() == '') {
             formIsValid = false;
-            errors["password"] = 'please enter password';
+            errors["password"] = I18n.t('user.form.errors.password');
         }
         if (!fields["email"] || fields["email"].trim() == '') {
             formIsValid = false;
-            errors["email"] = 'please enter email';
+            errors["email"] = I18n.t('user.form.errors.email');
         }
         this.setState({
             errors: errors
@@ -213,7 +213,7 @@ class UserForm extends React.Component {
                         </IconButton>
                         <div className='flex-grow-1' />
                         <Typography component="h1" variant="h5">
-                            {this.state.title}
+                            {this.isEdit ? I18n.t('user.form.edit.heading') : I18n.t('user.form.new.heading')}
                         </Typography>
                         <div className='flex-grow-1' />
                     </Toolbar>
@@ -221,31 +221,31 @@ class UserForm extends React.Component {
                     <form className={classes.form} noValidate validated={validated.toString()} onSubmit={this.handleSubmit}>
 
                         <FormControl margin="normal" required fullWidth error={this.state.errors.name ? true : false}>
-                            <InputLabel htmlFor="name">Name</InputLabel>
+                            <InputLabel htmlFor="name">{I18n.t('user.form.fields.name')}</InputLabel>
                             <Input id="name" name="name" autoComplete="name" autoFocus value={this.state.fields.name} onChange={this.handleInputChange} />
                             {this.state.errors.name && <FormHelperText>{this.state.errors.name}</FormHelperText>}
                         </FormControl>
 
                         <FormControl margin="normal" required fullWidth error={this.state.errors.email ? true : false}>
-                            <InputLabel htmlFor="email">Email</InputLabel>
+                            <InputLabel htmlFor="email">{I18n.t('user.form.fields.email')}</InputLabel>
                             <Input id="email" name="email" autoComplete="email" value={this.state.fields.email} onChange={this.handleInputChange} />
                             {this.state.errors.email && <FormHelperText>{this.state.errors.email}</FormHelperText>}
                         </FormControl>
 
                         <FormControl margin="normal" required fullWidth error={this.state.errors.contact ? true : false}>
-                            <InputLabel htmlFor="contact">Contact</InputLabel>
+                            <InputLabel htmlFor="contact">{I18n.t('user.form.fields.contact')}</InputLabel>
                             <Input id="contact" name="contact" autoComplete="contact" value={this.state.fields.contact} onChange={this.handleInputChange} />
                             {this.state.errors.contact && <FormHelperText>{this.state.errors.contact}</FormHelperText>}
                         </FormControl>
 
                         <FormControl margin="normal" required fullWidth error={this.state.errors.password ? true : false}>
-                            <InputLabel htmlFor="password">Password</InputLabel>
+                            <InputLabel htmlFor="password">{I18n.t('user.form.fields.password')}</InputLabel>
                             <Input name="password" type="password" id="password" autoComplete="current-password" value={this.state.fields.password} onChange={this.handleInputChange} />
                             {this.state.errors.password && <FormHelperText>{this.state.errors.password}</FormHelperText>}
                         </FormControl>
 
                         <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                            {this.state.submitText}
+                            {this.isEdit ? I18n.t('user.form.new.submit') : I18n.t('user.form.edit.submit')}
                         </Button>
                     </form>
                 </Paper>
