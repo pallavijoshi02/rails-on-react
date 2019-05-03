@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :users
   get "home/index"
   root to: "home#index"
+  get "update_language/:lang" => "home#update_language"
   match "/dashboard", to: "home#index", via: :get
   match "/dashboard/*path", to: "home#index", via: :get
   post 'authenticate', to: 'authentication#authenticate'

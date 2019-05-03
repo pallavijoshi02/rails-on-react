@@ -40,39 +40,45 @@ class AppTopBar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            anchorEl: null,
-            anchorLangEl: null,
+            langMenuAnchorEl: null,
+            userMenuAnchorEl: null,
         }
-
-        console.log(I18n.availableLocales)
     }
 
-    handleUserMenuClick = event => {
-        this.setState({ anchorEl: event.currentTarget });
-    };
+    changeLocale = (e) => {
+        if (!e || !e.currentTarget)
+            return this.toggleLangMenu()
+        const lc = e.currentTarget.id
+        if (!lc || lc === I18n.currentLocale())
+            return this.toggleLangMenu()
+        api.changeLocale(lc)
+            .then(() => (this.toggleLangMenu()))
+    }
 
-    handleUserMenuClose = () => {
-        this.setState({ anchorEl: null });
-    };
+    toggleLangMenu = (e) => {
+        if (!!this.state.langMenuAnchorEl)
+            this.setState({ langMenuAnchorEl: null })
+        else
+            this.setState({ langMenuAnchorEl: e.currentTarget })
+    }
 
-    handleLangMenuClick = event => {
-        this.setState({ anchorLangEl: event.currentTarget });
-    };
-
-    handleLangMenuClose = () => {
-        this.setState({ anchorLangEl: null });
-    };
+    toggleUserMenu = (e) => {
+        if (!!this.state.userMenuAnchorEl)
+            this.setState({ userMenuAnchorEl: null })
+        else
+            this.setState({ userMenuAnchorEl: e.currentTarget })
+    }
 
     logout = () => {
-        this.setState({ anchorEl: null });
+        this.setState({ userMenuAnchorEl: null });
         api.logout();
     };
 
     render() {
         const { classes, openDrawer } = this.props
-        const { anchorEl, anchorLangEl } = this.state;
-        const open = Boolean(anchorEl);
-        const langOpen = Boolean(anchorLangEl);
+        const { userMenuAnchorEl, langMenuAnchorEl } = this.state;
+        const open = Boolean(userMenuAnchorEl);
+        const langOpen = Boolean(langMenuAnchorEl);
         return (
             <AppBar position="static">
                 <Toolbar>
@@ -83,23 +89,23 @@ class AppTopBar extends React.Component {
                         {I18n.t('appbar.heading')}
                     </Typography>
 
-                    
+
 
                     {/* lang menu */}
                     <IconButton
                         aria-label="More"
                         aria-owns={langOpen ? 'lang-menu' : undefined}
                         aria-haspopup="true"
-                        onClick={this.handleLangMenuClick}
+                        onClick={this.toggleLangMenu}
                     >
                         <LangIcon />
                     </IconButton>
 
                     <Menu
                         id="lang-menu"
-                        anchorEl={anchorLangEl}
+                        anchorEl={langMenuAnchorEl}
                         open={langOpen}
-                        onClose={this.handleLangMenuClose}
+                        onClose={this.toggleLangMenu}
                         PaperProps={{
                             style: {
                                 maxHeight: ITEM_HEIGHT * 4.5,
@@ -107,8 +113,8 @@ class AppTopBar extends React.Component {
                             },
                         }}
                     >
-                        <MenuItem><span className="flag-icon flag-icon-gb"></span>&nbsp; English</MenuItem>
-                        <MenuItem><span className="flag-icon flag-icon-fr"></span>&nbsp; French</MenuItem>
+                        <MenuItem id="en" onClick={this.changeLocale} selected={'en' === I18n.currentLocale()}><span className="flag-icon flag-icon-gb"></span>&nbsp; {I18n.t('locale_names.en')}</MenuItem>
+                        <MenuItem id="fr" onClick={this.changeLocale} selected={'fr' === I18n.currentLocale()}><span className="flag-icon flag-icon-fr"></span>&nbsp; {I18n.t('locale_names.fr')}</MenuItem>
                     </Menu>
 
 
@@ -117,16 +123,15 @@ class AppTopBar extends React.Component {
                         aria-label="More"
                         aria-owns={open ? 'long-menu' : undefined}
                         aria-haspopup="true"
-                        onClick={this.handleUserMenuClick}
+                        onClick={this.toggleUserMenu}
                     >
                         <MoreVertIcon />
                     </IconButton>
-
                     <Menu
                         id="long-menu"
-                        anchorEl={anchorEl}
+                        anchorEl={userMenuAnchorEl}
                         open={open}
-                        onClose={this.handleUserMenuClose}
+                        onClose={this.toggleUserMenu}
                         PaperProps={{
                             style: {
                                 maxHeight: ITEM_HEIGHT * 4.5,

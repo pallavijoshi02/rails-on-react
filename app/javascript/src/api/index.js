@@ -30,6 +30,16 @@ class API {
         window.location.replace(window.location.origin);
     }
 
+    async changeLocale(locale) {
+        return this.app
+          .get(`/update_language/${locale}`)
+          .then((resp) => {
+            window.location.reload();
+          }).catch((e) => {
+            console.error(e)
+          })
+      }
+
     parseError = (e) => {        
         try {
             if (!!e && !!e.response && !!e.response.data) {

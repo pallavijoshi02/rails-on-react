@@ -34,7 +34,7 @@ en:
     en: Anglais
     fr: Français
   appbar:
-    heading: React on Rails
+    heading: Réagir sur les rails
     logout: Logout
   processing:
     loading: Loading...
