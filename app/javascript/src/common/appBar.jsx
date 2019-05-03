@@ -81,6 +81,36 @@ class AppTopBar extends React.Component {
                         {I18n.t('appbar.heading')}
                     </Typography>
 
+                    
+
+                    {/* lang menu */}
+                    <IconButton
+                        aria-label="More"
+                        aria-owns={langOpen ? 'lang-menu' : undefined}
+                        aria-haspopup="true"
+                        onClick={this.handleLangMenuClick}
+                    >
+                        <LangIcon />
+                    </IconButton>
+
+                    <Menu
+                        id="lang-menu"
+                        anchorEl={anchorLangEl}
+                        open={langOpen}
+                        onClose={this.handleLangMenuClose}
+                        PaperProps={{
+                            style: {
+                                maxHeight: ITEM_HEIGHT * 4.5,
+                                width: 200,
+                            },
+                        }}
+                    >
+                        <MenuItem><span className="flag-icon flag-icon-gb"></span>&nbsp; English</MenuItem>
+                        <MenuItem><span className="flag-icon flag-icon-fr"></span>&nbsp; French</MenuItem>
+                    </Menu>
+
+
+                    {/* account menu */}
                     <IconButton
                         aria-label="More"
                         aria-owns={open ? 'long-menu' : undefined}
@@ -103,32 +133,6 @@ class AppTopBar extends React.Component {
                         }}
                     >
                         <MenuItem onClick={this.logout}>{I18n.t('appbar.logout')}</MenuItem>
-                    </Menu>
-
-
-                    <IconButton
-                        aria-label="More"
-                        aria-owns={langOpen ? 'lang-menu' : undefined}
-                        aria-haspopup="true"
-                        onClick={this.handleLangMenuClick}
-                    >
-                        <LangIcon />
-                    </IconButton>
-
-                    <Menu
-                        id="lang-menu"
-                        anchorEl={anchorLangEl}
-                        open={langOpen}
-                        onClose={this.handleLangMenuClose}
-                        PaperProps={{
-                            style: {
-                                maxHeight: ITEM_HEIGHT * 4.5,
-                                width: 200,
-                            },
-                        }}
-                    >
-                        <MenuItem><span className="flag-icon flag-icon-gr"></span> En</MenuItem>
-                        <MenuItem>Fr</MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>

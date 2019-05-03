@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import 'flag-icon-css/css/flag-icon.css';
+
 // redux
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -14,6 +16,7 @@ import AppTopBar from './src/common/appBar';
 import AppDrawer from './src/common/appDrawer';
 
 import currentUser from './src/helper/auth';
+
 
 const styles = theme => ({
   root: {
