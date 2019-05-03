@@ -39,6 +39,7 @@ en:
   processing:
     loading: Loading...
   menu:
+    dashboard: Dashboard
     user_groups: User Groups
     users: Users  
   dashboard:
