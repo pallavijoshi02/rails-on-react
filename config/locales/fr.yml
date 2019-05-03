@@ -30,6 +30,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:  
+  locale_names:
+    en: Anglais
+    fr: Français
   appbar:
     heading: React on Rails
     logout: Logout

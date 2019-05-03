@@ -43,6 +43,8 @@ class AppTopBar extends React.Component {
             anchorEl: null,
             anchorLangEl: null,
         }
+
+        console.log(I18n.availableLocales)
     }
 
     handleUserMenuClick = event => {
