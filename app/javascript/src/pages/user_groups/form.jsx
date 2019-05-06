@@ -178,7 +178,7 @@ class UserGroupForm extends React.Component {
 
                 <div className='container pb-4'>
                     <div className='row'>
-                        <div className='col-12 col-md-8 mx-auto'>
+                        <div className='col-12 col-md-6 mx-auto'>
                             <Paper className={classes.paper}>
                                 <form className={classes.form} noValidate validated={validated.toString()} onSubmit={this.handleSubmit}>
                                     <FormControl margin="normal" required fullWidth error={this.state.errors.name ? true : false}>

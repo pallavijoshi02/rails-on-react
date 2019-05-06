@@ -76,7 +76,7 @@ class UserGroupView extends React.Component {
                 </Toolbar>
                 <div className='container pb-4'>
                     <div className='row'>
-                        <div className='col-12 col-md-8 mx-auto'>
+                        <div className='col-12 col-md-6 mx-auto'>
                             <Paper className={classes.paper}>
                                 <List component="nav">
                                     <ListItem button>
