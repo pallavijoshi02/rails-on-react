@@ -7,6 +7,7 @@ const BodyColor = '#333';
 const BodyBG = '#fff';
 
 const theme = createMuiTheme({
+
   overrides: {
     MuiFormControlLabel: {
       label: {
@@ -99,10 +100,10 @@ const theme = createMuiTheme({
     useNextVariants: true,
     fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
   },
+  
 })
 
 class MuiTheme extends React.Component {
-
   render() {
     return (
       <MuiThemeProvider theme={theme}>

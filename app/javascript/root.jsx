@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import 'flag-icon-css/css/flag-icon.css';
@@ -20,6 +22,14 @@ import AppDrawer from './src/common/appDrawer';
 
 import currentUser from './src/helper/auth';
 
+const styles = theme => ({  
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3,
+  },
+});
+
 class Root extends React.Component {
 
   constructor(props) {
@@ -34,17 +44,20 @@ class Root extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <Provider store={store}>
         <Router basename='/dashboard'>
-          <MuiTheme>
+          <MuiTheme>            
             <CssBaseline />
             {currentUser.access_token && <AppTopBar openDrawer={this.toggleDrawer} />}
             {currentUser.access_token && <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />}
             <ToolbarSpace />
-            <div className='container-fluid'>
-              <AppRoutes />
-            </div>
+            <main className={classes.content}>
+              <div className='container-fluid'>
+                <AppRoutes />
+              </div>
+            </main>
           </MuiTheme>
         </Router>
       </Provider>
@@ -52,5 +65,10 @@ class Root extends React.Component {
   }
 }
 
-export default Root;
+Root.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+
+export default withStyles(styles)(Root);
 
