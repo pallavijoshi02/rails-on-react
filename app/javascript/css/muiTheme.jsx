@@ -1,5 +1,5 @@
-import React from 'react'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import React from 'react';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const Primary = '#3F51B5';
 const Secondary = '#4CAF50';
@@ -67,7 +67,7 @@ const theme = createMuiTheme({
         flex: '1 1 200px',
         marginRight: 0,
       },
-    },
+    },    
   },
   breakpoints: {
     values: {
@@ -81,7 +81,7 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: Primary,
-      contrastText: '#000'
+      contrastText: '#fff'
     },
     secondary: {
       main: Secondary,
@@ -98,7 +98,7 @@ const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
     fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
-  }, 
+  },
 })
 
 class MuiTheme extends React.Component {
