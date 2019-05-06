@@ -1,10 +1,10 @@
 import React from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-const Primary = '#5bbc9a';
-const Secondary = '#428bc9';
-const BodyColor = '#3e3f42';
-const BodyBG = '#f0f3f5';
+const Primary = '#3F51B5';
+const Secondary = '#4CAF50';
+const BodyColor = '#333';
+const BodyBG = '#fff';
 
 const theme = createMuiTheme({
   overrides: {
@@ -96,6 +96,7 @@ const theme = createMuiTheme({
     },
   },
   typography: {
+    useNextVariants: true,
     fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
   },
 })
@@ -112,4 +113,4 @@ class MuiTheme extends React.Component {
 
 }
 
-export default MuiTheme;;
+export default MuiTheme;

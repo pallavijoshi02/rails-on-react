@@ -13,28 +13,13 @@ const store = createStore(appState)
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiTheme from './css/muiTheme';
+import ToolbarSpace from './css/toolbarSpace';
 
 import AppRoutes from './appRoutes';
 import AppTopBar from './src/common/appBar';
 import AppDrawer from './src/common/appDrawer';
 
 import currentUser from './src/helper/auth';
-
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-});
 
 class Root extends React.Component {
 
@@ -50,19 +35,23 @@ class Root extends React.Component {
     this.setState({ drawerOpen: !this.state.drawerOpen })
   }
 
-  render() {
-    const { classes } = this.props;
+  render() {    
     return (
       <Provider store={store}>
         <Router basename='/dashboard'>
           <MuiTheme>
             <CssBaseline />
             <div className='d-flex'>
-              <div className={classes.root}>
-                {currentUser.access_token && <AppTopBar openDrawer={this.toggleDrawer} />}
-                {currentUser.access_token && <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />}
-                <AppRoutes />
+
+              {currentUser.access_token && <AppTopBar openDrawer={this.toggleDrawer} />}
+              {currentUser.access_token && <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />}
+              <div className='d-flex flex-column min-vh-100 w-100'>
+                <ToolbarSpace />
+                <div className='d-flex flex-column flex-grow-1'>
+                  <AppRoutes />
+                </div>
               </div>
+
             </div>
           </MuiTheme>
         </Router>
@@ -71,9 +60,5 @@ class Root extends React.Component {
   }
 }
 
-Root.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Root);
+export default Root;
 
