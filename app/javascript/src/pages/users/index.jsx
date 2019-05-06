@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
 import api from '../../api/index';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import MUIDataTable from 'mui-datatables';
 import ViewIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
@@ -13,13 +11,6 @@ import { Link } from 'react-router-dom';
 import CustomToolbar from '../../common/customToolbar';
 import CustomToolbarSelect from '../../common/customToolbarSelect';
 import moment from 'moment';
-
-const styles = theme => ({
-    main: {
-        width: 'auto',
-        display: 'block', // Fix IE 11 issue.        
-    },
-});
 
 const COL_NAME = { name: I18n.t('user.index.name'), options: { sort: true, filter: true } }
 const COL_EMAIL = { name: I18n.t('user.index.email'), options: { sort: true, filter: true } }
@@ -47,7 +38,7 @@ class UserList extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {            
+        this.state = {
             users: []
         }
         this.getData();
@@ -125,19 +116,14 @@ class UserList extends React.Component {
             customToolbarSelect: selectedRows => (
                 <CustomToolbarSelect deleteRecord={() => { this.deleteRecord(selectedRows) }} />
             )
-        };
-
-        const { classes } = this.props;
+        };        
         return (
-            <main className={classes.main}>
-                <CssBaseline />
-                <MUIDataTable
-                    title={I18n.t('user.index.heading')}
-                    data={this.bindData()}
-                    columns={columns}
-                    options={options}
-                />
-            </main>
+            <MUIDataTable
+                title={I18n.t('user.index.heading')}
+                data={this.bindData()}
+                columns={columns}
+                options={options}
+            />
         )
     }
 }
@@ -146,5 +132,5 @@ UserList.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withRouter(connect()(withStyles(styles)(UserList)));
+export default withRouter(connect()(UserList));
 

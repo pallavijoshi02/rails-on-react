@@ -1,10 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
 import api from '../../api/index';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import MUIDataTable from 'mui-datatables';
 import ViewIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
@@ -14,12 +11,6 @@ import CustomToolbar from '../../common/customToolbar';
 import CustomToolbarSelect from '../../common/customToolbarSelect';
 import moment from 'moment';
 
-const styles = theme => ({
-    main: {
-        width: 'auto',
-        display: 'block', // Fix IE 11 issue.        
-    },
-});
 
 const COL_NAME = { name: I18n.t('user_group.index.name'), options: { sort: true, filter: true } }
 const COL_UAT = { name: I18n.t('user_group.index.updated_at'), options: { sort: true, filter: true } }
@@ -123,24 +114,16 @@ class UserGroupList extends React.Component {
             )
         };
 
-        const { classes } = this.props;
         return (
-            <main className={classes.main}>
-                <CssBaseline />
-                <MUIDataTable
-                    title={I18n.t('user_group.index.heading')}
-                    data={this.bindData()}
-                    columns={columns}
-                    options={options}
-                />
-            </main>
+            <MUIDataTable
+                title={I18n.t('user_group.index.heading')}
+                data={this.bindData()}
+                columns={columns}
+                options={options}
+            />
         )
     }
 }
 
-UserGroupList.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withRouter(connect()(withStyles(styles)(UserGroupList)));
+export default withRouter(connect()(UserGroupList));
 

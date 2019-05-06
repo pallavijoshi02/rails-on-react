@@ -23,22 +23,11 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import api from '../../api/index';
 
 const styles = theme => ({
-    main: {
-        width: 'auto',
-        display: 'block', // Fix IE 11 issue.
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-            width: 400,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-        },
-    },
     paper: {
         marginTop: theme.spacing.unit * 8,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
+        alignItems: 'left',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
     }
 });
@@ -47,7 +36,7 @@ class UserView extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {            
+        this.state = {
             user: []
         }
         this.getData();
@@ -74,42 +63,47 @@ class UserView extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <main className={classes.main}>
-                <CssBaseline />
-                <Paper className={classes.paper}>
-                    <Toolbar className='w-100'>
-                        <IconButton onClick={this.props.history.goBack}>
-                            <BackIcon />
-                        </IconButton>
-                        <div className='flex-grow-1' />
-                        <Typography component="h1" variant="h5" className='px-0 px-md-3'>
-                            {I18n.t('user.view.heading')}
-                        </Typography>
-                        <div className='flex-grow-1' />
-                    </Toolbar>
+            <React.Fragment>
+                <Toolbar className='w-100'>
+                    <IconButton onClick={this.props.history.goBack}>
+                        <BackIcon />
+                    </IconButton>
+                    <div className='flex-grow-1' />
+                    <Typography component="h1" variant="h5" className='px-0 px-md-3'>
+                        {I18n.t('user.view.heading')}
+                    </Typography>
+                    <div className='flex-grow-1' />
+                </Toolbar>
 
-                    <List component="nav">
-                        <ListItem button>
-                            <ListItemIcon>
-                                <InboxIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={this.state.user.name} />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <EmailIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={this.state.user.email} />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <MobileFriendlyIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={this.state.user.contact} />
-                        </ListItem>
-                    </List>
-                </Paper>
-            </main>
+                <div className='container pb-4'>
+                    <div className='row'>
+                        <div className='col-12 col-md-8 mx-auto'>
+                            <Paper className={classes.paper}>
+                                <List component="nav">
+                                    <ListItem button>
+                                        <ListItemIcon>
+                                            <InboxIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={this.state.user.name} />
+                                    </ListItem>
+                                    <ListItem button>
+                                        <ListItemIcon>
+                                            <EmailIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={this.state.user.email} />
+                                    </ListItem>
+                                    <ListItem button>
+                                        <ListItemIcon>
+                                            <MobileFriendlyIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={this.state.user.contact} />
+                                    </ListItem>
+                                </List>
+                            </Paper>
+                        </div>
+                    </div>
+                </div>
+            </React.Fragment>
         )
     }
 }

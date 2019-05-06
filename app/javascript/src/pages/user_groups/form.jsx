@@ -20,17 +20,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import api from '../../api/index';
 
 const styles = theme => ({
-    main: {
-        width: 'auto',
-        display: 'block', // Fix IE 11 issue.
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-            width: 400,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-        },
-    },
     paper: {
         marginTop: theme.spacing.unit * 8,
         display: 'flex',
@@ -56,7 +45,7 @@ const INITIAL_FIELDS = {
     permision: ''
 }
 
-const INITIAL_STATE = {    
+const INITIAL_STATE = {
     validated: false,
     fields: INITIAL_FIELDS,
     errors: INITIAL_FIELDS,
@@ -175,35 +164,38 @@ class UserGroupForm extends React.Component {
         const { classes } = this.props;
         const { validated } = this.state;
         return (
-            <main className={classes.main}>
-                <CssBaseline />
-                <Paper className={classes.paper}>
+            <React.Fragment>
+                <Toolbar className='w-100'>
+                    <IconButton onClick={this.props.history.goBack}>
+                        <BackIcon />
+                    </IconButton>
+                    <div className='flex-grow-1' />
+                    <Typography component="h1" variant="h5">
+                        {this.isEdit ? I18n.t('user_group.form.edit.heading') : I18n.t('user_group.form.new.heading')}
+                    </Typography>
+                    <div className='flex-grow-1' />
+                </Toolbar>
 
-                    <Toolbar className='w-100'>
-                        <IconButton onClick={this.props.history.goBack}>
-                            <BackIcon />
-                        </IconButton>
-                        <div className='flex-grow-1' />
-                        <Typography component="h1" variant="h5">
-                            {this.isEdit ? I18n.t('user_group.form.edit.heading') : I18n.t('user_group.form.new.heading')}
-                        </Typography>
-                        <div className='flex-grow-1' />
-                    </Toolbar>
+                <div className='container pb-4'>
+                    <div className='row'>
+                        <div className='col-12 col-md-8 mx-auto'>
+                            <Paper className={classes.paper}>
+                                <form className={classes.form} noValidate validated={validated.toString()} onSubmit={this.handleSubmit}>
+                                    <FormControl margin="normal" required fullWidth error={this.state.errors.name ? true : false}>
+                                        <InputLabel htmlFor="name">{I18n.t('user_group.form.fields.name')}</InputLabel>
+                                        <Input id="name" name="name" autoComplete="name" autoFocus value={this.state.fields.name} onChange={this.handleInputChange} />
+                                        {this.state.errors.name && <FormHelperText>{this.state.errors.name}</FormHelperText>}
+                                    </FormControl>
 
-                    <form className={classes.form} noValidate validated={validated.toString()} onSubmit={this.handleSubmit}>
-
-                        <FormControl margin="normal" required fullWidth error={this.state.errors.name ? true : false}>
-                            <InputLabel htmlFor="name">{I18n.t('user_group.form.fields.name')}</InputLabel>
-                            <Input id="name" name="name" autoComplete="name" autoFocus value={this.state.fields.name} onChange={this.handleInputChange} />
-                            {this.state.errors.name && <FormHelperText>{this.state.errors.name}</FormHelperText>}
-                        </FormControl>
-
-                        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                            {this.isEdit ? I18n.t('user_group.form.new.submit') : I18n.t('user_group.form.edit.submit')}
-                        </Button>
-                    </form>
-                </Paper>
-            </main>
+                                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                                        {this.isEdit ? I18n.t('user_group.form.new.submit') : I18n.t('user_group.form.edit.submit')}
+                                    </Button>
+                                </form>
+                            </Paper>
+                        </div>
+                    </div>
+                </div>
+            </React.Fragment>
         )
     }
 }
