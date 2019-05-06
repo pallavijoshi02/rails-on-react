@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -35,27 +36,36 @@ const styles = theme => ({
 
 
 const Menu = (props) => {
-    const { classes } = props
+    const { classes, theme, onClose } = props
     return (
-        <div className='d-flex flex-column min-vh-100'>
-            <List>
-                <ListItem button key={I18n.t('menu.dashboard')} component={NavLink} to={'/dashboard'} exact>
-                    <ListItemIcon><DashboardIcon /></ListItemIcon>
-                    <ListItemText primary={I18n.t('menu.dashboard')} />
-                </ListItem>
-            </List>
+        <React.Fragment>
+            <div className={classes.drawerHeader}>
+                <IconButton onClick={onClose}>
+                    {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                </IconButton>
+            </div>
             <Divider />
-            <List>
-                <ListItem button key={I18n.t('menu.user_groups')} component={NavLink} to={'/user-groups'} exact>
-                    <ListItemIcon><UserGroupIcon /></ListItemIcon>
-                    <ListItemText primary={I18n.t('menu.user_groups')} />
-                </ListItem>
-                <ListItem button key={I18n.t('menu.users')} component={NavLink} to={'/users'} exact>
-                    <ListItemIcon><UserIcon /></ListItemIcon>
-                    <ListItemText primary={I18n.t('menu.users')} />
-                </ListItem>
-            </List>
-        </div>
+
+            <div className='d-flex flex-column min-vh-100'>
+                <List>
+                    <ListItem button key={I18n.t('menu.dashboard')} component={NavLink} to={'/dashboard'} exact>
+                        <ListItemIcon><DashboardIcon /></ListItemIcon>
+                        <ListItemText primary={I18n.t('menu.dashboard')} />
+                    </ListItem>
+                </List>
+                <Divider />
+                <List>
+                    <ListItem button key={I18n.t('menu.user_groups')} component={NavLink} to={'/user-groups'} exact>
+                        <ListItemIcon><UserGroupIcon /></ListItemIcon>
+                        <ListItemText primary={I18n.t('menu.user_groups')} />
+                    </ListItem>
+                    <ListItem button key={I18n.t('menu.users')} component={NavLink} to={'/users'} exact>
+                        <ListItemIcon><UserIcon /></ListItemIcon>
+                        <ListItemText primary={I18n.t('menu.users')} />
+                    </ListItem>
+                </List>
+            </div>
+        </React.Fragment>
     )
 }
 
@@ -67,7 +77,7 @@ class AppDrawer extends React.Component {
 
     render() {
         const { classes, theme, open, onClose } = this.props
-        const menu = <Menu classes={classes} />
+        const menu = <Menu classes={classes} theme={theme} onClose={onClose} />
         return (
             <Drawer
                 className={classes.drawer}
@@ -79,15 +89,7 @@ class AppDrawer extends React.Component {
                     paper: classes.drawerPaper,
                 }}
             >
-
-                <div className={classes.drawerHeader}>
-                    <IconButton onClick={onClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                    </IconButton>
-                </div>
-                <Divider />
-
-               {menu}
+                {menu}
             </Drawer>
         )
     }
