@@ -47,19 +47,22 @@ const Menu = (props) => {
             <Divider />
 
             <div className='d-flex flex-column min-vh-100'>
+
                 <List>
-                    <ListItem button key={I18n.t('menu.dashboard')} component={NavLink} to={'/dashboard'} exact>
+                    <ListItem button key={I18n.t('menu.dashboard')} component={NavLink} to={'/dashboard'} exact onClick={onClose}>
                         <ListItemIcon><DashboardIcon /></ListItemIcon>
                         <ListItemText primary={I18n.t('menu.dashboard')} />
                     </ListItem>
                 </List>
                 <Divider />
-                <List>
-                    <ListItem button key={I18n.t('menu.user_groups')} component={NavLink} to={'/user-groups'} exact>
+
+
+                <List component="div" disablePadding>
+                    <ListItem button key={I18n.t('menu.user_groups')} component={NavLink} to={'/user-groups'} exact onClick={onClose}>
                         <ListItemIcon><UserGroupIcon /></ListItemIcon>
                         <ListItemText primary={I18n.t('menu.user_groups')} />
                     </ListItem>
-                    <ListItem button key={I18n.t('menu.users')} component={NavLink} to={'/users'} exact>
+                    <ListItem button key={I18n.t('menu.users')} component={NavLink} to={'/users'} exact onClick={onClose}>
                         <ListItemIcon><UserIcon /></ListItemIcon>
                         <ListItemText primary={I18n.t('menu.users')} />
                     </ListItem>
