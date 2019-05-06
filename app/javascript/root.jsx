@@ -11,6 +11,9 @@ import { createStore } from 'redux';
 import appState from './redux/reducers';
 const store = createStore(appState)
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+import MuiTheme from './css/muiTheme';
+
 import AppRoutes from './appRoutes';
 import AppTopBar from './src/common/appBar';
 import AppDrawer from './src/common/appDrawer';
@@ -52,11 +55,16 @@ class Root extends React.Component {
     return (
       <Provider store={store}>
         <Router basename='/dashboard'>
-          <div className={classes.root}>
-            {currentUser.access_token && <AppTopBar openDrawer={this.toggleDrawer} />}
-            {currentUser.access_token && <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />}
-            <AppRoutes />
-          </div>
+          <MuiTheme>
+            <CssBaseline />
+            <div className='d-flex'>
+              <div className={classes.root}>
+                {currentUser.access_token && <AppTopBar openDrawer={this.toggleDrawer} />}
+                {currentUser.access_token && <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />}
+                <AppRoutes />
+              </div>
+            </div>
+          </MuiTheme>
         </Router>
       </Provider>
     )
