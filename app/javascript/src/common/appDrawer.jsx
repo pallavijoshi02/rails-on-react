@@ -6,17 +6,10 @@ import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import UserIcon from '@material-ui/icons/SupervisedUserCircle';
-import UserGroupIcon from '@material-ui/icons/VerifiedUser';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { NavLink } from 'react-router-dom';
 import { DrawerWidth } from '../helper/constants';
-
+import MenuNode from './menuNode';
 const styles = theme => ({
     drawer: {
         width: DrawerWidth,
@@ -47,25 +40,9 @@ const Menu = (props) => {
             <Divider />
 
             <div className='d-flex flex-column min-vh-100'>
-
-                <List>
-                    <ListItem button key={I18n.t('menu.dashboard')} component={NavLink} to={'/dashboard'} exact onClick={onClose}>
-                        <ListItemIcon><DashboardIcon /></ListItemIcon>
-                        <ListItemText primary={I18n.t('menu.dashboard')} />
-                    </ListItem>
-                </List>
-                <Divider />
-
-
-                <List component="div" disablePadding>
-                    <ListItem button key={I18n.t('menu.user_groups')} component={NavLink} to={'/user-groups'} exact onClick={onClose}>
-                        <ListItemIcon><UserGroupIcon /></ListItemIcon>
-                        <ListItemText primary={I18n.t('menu.user_groups')} />
-                    </ListItem>
-                    <ListItem button key={I18n.t('menu.users')} component={NavLink} to={'/users'} exact onClick={onClose}>
-                        <ListItemIcon><UserIcon /></ListItemIcon>
-                        <ListItemText primary={I18n.t('menu.users')} />
-                    </ListItem>
+                <List disablePadding component='nav' className='drawer flex-grow-1'>
+                    <MenuNode showRoot role='dashboard' />
+                    <MenuNode showRoot role='user' />
                 </List>
             </div>
         </React.Fragment>

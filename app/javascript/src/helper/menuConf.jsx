@@ -7,11 +7,11 @@ const MenuConf = {
     icon: 'fa fa-home',
   },
   user: {
-    path: '',
+    path: 'user',
     text: 'user',
     icon: 'fa fa-user',
     items: [{
-      path: 'user_groups',
+      path: 'user-groups',
       text: 'user group'
     }, {
       path: 'users',

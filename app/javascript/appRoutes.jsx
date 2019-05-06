@@ -42,16 +42,18 @@ class AppRoutes extends React.Component {
                     {currentUser.access_token && <Redirect exact from='/' to='/dashboard' />}
                     <Route path='/login' component={Login} />
                     <PrivateRoute path='/dashboard' component={Dashboard} />
-                    
-                    <PrivateRoute path='/users' component={UserList} />
-                    <PrivateRoute path='/user-form/new' component={UserForm} />
-                    <PrivateRoute path='/user-form/:id' component={UserForm} />
-                    <PrivateRoute path='/user-view/:id' component={UserView} />
-                    
-                    <PrivateRoute path='/user-groups' component={UserGroupList} />
-                    <PrivateRoute path='/user-group-form/new' component={UserGroupForm} />
-                    <PrivateRoute path='/user-group-form/:id' component={UserGroupForm} />
-                    <PrivateRoute path='/user-group-view/:id' component={UserGroupView} />
+
+                    <Redirect exact from='/user' to='/user/user-groups' />
+
+                    <PrivateRoute path='/:kind/users' component={UserList} />
+                    <PrivateRoute path='/:kind/user-form/new' component={UserForm} />
+                    <PrivateRoute path='/:kind/user-form/:id' component={UserForm} />
+                    <PrivateRoute path='/:kind/user-view/:id' component={UserView} />
+
+                    <PrivateRoute path='/:kind/user-groups' component={UserGroupList} />
+                    <PrivateRoute path='/:kind/user-group-form/new' component={UserGroupForm} />
+                    <PrivateRoute path='/:kind/user-group-form/:id' component={UserGroupForm} />
+                    <PrivateRoute path='/:kind/user-group-view/:id' component={UserGroupView} />
                 </Switch>
                 <Flash />
             </React.Fragment>

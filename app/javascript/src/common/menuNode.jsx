@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 import MenuObjects from '../helper/menuConf';
 
 const Item = (props) => {
-  const {item, expanded, showRoot, ...rest} = props
+  const { item, expanded, showRoot, ...rest } = props
   const hasChildren = item.children.length > 0
   const icon = item.icon || (hasChildren && 'fa fa-list-ul')
   let padding = 16 * (item.level + (showRoot ? 1 : 0))
@@ -20,15 +20,15 @@ const Item = (props) => {
       style={{ paddingLeft: padding + (!!icon ? 0 : 20) }}>
       {!!icon && <i className={`${icon} fa-fw icon`} />}
       <ListItemText primary={item.text} color='inherit' />
-      {hasChildren && (expanded ? <ExpandLess className='arr close' /> : <ExpandMore className='arr open'/>)}
+      {hasChildren && (expanded ? <ExpandLess className='arr close' /> : <ExpandMore className='arr open' />)}
     </ListItem>
   )
 }
 
 const MenuNode = withRouter((props) => {
-  const {role, showRoot, parentActive,
+  const { role, showRoot, parentActive,
     location, match, history,
-    ...rest} = props
+    ...rest } = props
   const item = props.item || MenuObjects[role || '']
   if (!item) return null
   const hasChildren = item.children.length > 0
@@ -39,8 +39,8 @@ const MenuNode = withRouter((props) => {
     {hasChildren && <Collapse in={expand}>
       <List component='nav' disablePadding className='drawer'>
         {item.children.map((x) => (<MenuNode key={x.key} item={x} showRoot={showRoot} parentActive={!!parentActive || expand} />))}
-        </List>
-      </Collapse>}
+      </List>
+    </Collapse>}
   </React.Fragment>)
 })
 

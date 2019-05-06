@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import 'flag-icon-css/css/flag-icon.css';
 import 'bootstrap/scss/bootstrap.scss';
+import 'font-awesome/css/font-awesome.min.css';
 
 // redux
 import { Provider } from 'react-redux';
@@ -22,7 +23,7 @@ import AppDrawer from './src/common/appDrawer';
 
 import currentUser from './src/helper/auth';
 
-const styles = theme => ({  
+const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
@@ -48,7 +49,7 @@ class Root extends React.Component {
     return (
       <Provider store={store}>
         <Router basename='/dashboard'>
-          <MuiTheme>            
+          <MuiTheme>
             <CssBaseline />
             {currentUser.access_token && <AppTopBar openDrawer={this.toggleDrawer} />}
             {currentUser.access_token && <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />}
