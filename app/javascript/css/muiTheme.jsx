@@ -98,7 +98,7 @@ const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
     fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
-  },
+  }, 
 })
 
 class MuiTheme extends React.Component {

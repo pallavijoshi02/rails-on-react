@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import 'flag-icon-css/css/flag-icon.css';
+import 'bootstrap/scss/bootstrap.scss';
 
 // redux
 import { Provider } from 'react-redux';
@@ -26,7 +25,6 @@ class Root extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: 'React on Rails',
       drawerOpen: false,
     }
   }
@@ -35,23 +33,17 @@ class Root extends React.Component {
     this.setState({ drawerOpen: !this.state.drawerOpen })
   }
 
-  render() {    
+  render() {
     return (
       <Provider store={store}>
         <Router basename='/dashboard'>
           <MuiTheme>
             <CssBaseline />
-            <div className='d-flex'>
-
-              {currentUser.access_token && <AppTopBar openDrawer={this.toggleDrawer} />}
-              {currentUser.access_token && <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />}
-              <div className='d-flex flex-column min-vh-100 w-100'>
-                <ToolbarSpace />
-                <div className='d-flex flex-column flex-grow-1'>
-                  <AppRoutes />
-                </div>
-              </div>
-
+            {currentUser.access_token && <AppTopBar openDrawer={this.toggleDrawer} />}
+            {currentUser.access_token && <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />}
+            <ToolbarSpace />
+            <div className='container-fluid'>
+              <AppRoutes />
             </div>
           </MuiTheme>
         </Router>
