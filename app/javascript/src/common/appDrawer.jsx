@@ -5,16 +5,16 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { DrawerWidth } from '../helper/constants';
 import MenuNode from './menuNode';
 const styles = theme => ({
     drawer: {
-        width: DrawerWidth,
-        flexShrink: 0,
+        [theme.breakpoints.up('md')]: {
+            width: DrawerWidth,
+            flexShrink: 0,
+        },
     },
+    toolbar: theme.mixins.toolbar,
     drawerPaper: {
         width: DrawerWidth,
     },
@@ -29,16 +29,8 @@ const styles = theme => ({
 
 
 const Menu = (props) => {
-    const { classes, theme, onClose } = props
     return (
         <React.Fragment>
-            <div className={classes.drawerHeader}>
-                <IconButton onClick={onClose}>
-                    {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                </IconButton>
-            </div>
-            <Divider />
-
             <div className='d-flex flex-column min-vh-100'>
                 <List disablePadding component='nav' className='drawer flex-grow-1'>
                     <MenuNode showRoot role='dashboard' />
@@ -59,18 +51,21 @@ class AppDrawer extends React.Component {
         const { classes, theme, open, onClose } = this.props
         const menu = <Menu classes={classes} theme={theme} onClose={onClose} />
         return (
-            <Drawer
-                className={classes.drawer}
-                variant="persistent"
-                anchor="left"
-                open={open}
-                onClose={onClose}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-            >
-                {menu}
-            </Drawer>
+            <nav className={classes.drawer}>
+                <Hidden mdUp>
+                    <Drawer variant='temporary'
+                        open={open} onClose={onClose}
+                        classes={{ paper: classes.drawerPaper }}>
+                        {menu}
+                    </Drawer>
+                </Hidden>
+                <Hidden smDown>
+                    <Drawer variant='permanent' open
+                        classes={{ paper: classes.drawerPaper }}>
+                        {menu}
+                    </Drawer>
+                </Hidden>
+            </nav>
         )
     }
 

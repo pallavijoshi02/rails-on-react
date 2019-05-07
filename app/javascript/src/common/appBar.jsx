@@ -19,10 +19,19 @@ import api from '../api/index';
 const styles = theme => ({
     grow: {
         flexGrow: 1,
-    },   
+    },
+    appBar: {
+        marginLeft: DrawerWidth,
+        [theme.breakpoints.up('md')]: {
+            width: `calc(100% - ${DrawerWidth}px)`,
+        },
+    },
     menuButton: {
-        marginLeft: -12,
-        marginRight: 20,
+        marginLeft: -2 * theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        [theme.breakpoints.up('md')]: {
+            display: 'none',
+        },
     },
 });
 
@@ -36,7 +45,7 @@ class AppTopBar extends React.Component {
         this.state = {
             langMenuAnchorEl: null,
             userMenuAnchorEl: null,
-        }            
+        }
     }
 
     changeLocale = (e) => {
@@ -74,7 +83,7 @@ class AppTopBar extends React.Component {
         const open = Boolean(userMenuAnchorEl);
         const langOpen = Boolean(langMenuAnchorEl);
         return (
-            <AppBar position='static'>
+            <AppBar position='fixed' className={classes.appBar}>
                 <Toolbar>
                     <IconButton className={classes.menuButton} onClick={openDrawer} color="inherit" aria-label="Menu">
                         <MenuIcon />

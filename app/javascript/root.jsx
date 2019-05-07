@@ -51,17 +51,21 @@ class Root extends React.Component {
         <Router basename='/dashboard'>
           <MuiTheme>
             <CssBaseline />
-            {currentUser.access_token && <AppTopBar openDrawer={this.toggleDrawer} />}
-            {currentUser.access_token && <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />}
-            <ToolbarSpace />
-            <main className={classes.content}>
-              <div className='container-fluid'>
-                <AppRoutes />
+            <div className='d-flex'>
+              {currentUser.access_token && <AppTopBar openDrawer={this.toggleDrawer} />}
+              {currentUser.access_token && <AppDrawer open={this.state.drawerOpen} onClose={this.toggleDrawer} />}
+              <div className='d-flex flex-column min-vh-100 w-100'>
+                <ToolbarSpace />
+                <main className={classes.content}>
+                  <div className='container-fluid'>
+                    <AppRoutes />
+                  </div>
+                </main>
               </div>
-            </main>
+            </div>
           </MuiTheme>
         </Router>
-      </Provider>
+      </Provider >
     )
   }
 }
