@@ -20,8 +20,8 @@ const COL_ACTIONS = (view, edit) => ({
     name: 'Action', options: {
         sort: false, filter: false,
         customBodyRender: (data) => {
-            const viewPath = `/user-view/${data.id}`
-            const editPath = `/user-form/${data.id}`
+            const viewPath = `/user/user-view/${data.id}`
+            const editPath = `/user/user-form/${data.id}`
             return (
                 <React.Fragment>
                     {view && <IconButton component={Link} to={viewPath}><ViewIcon /></IconButton>}
