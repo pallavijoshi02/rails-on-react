@@ -85,7 +85,7 @@ class UserGroupList extends React.Component {
     }
 
     addRecord() {
-        this.props.history.push('/user-group-form/new');
+        this.props.history.push('/user/user-group-form/new');
     }
 
     deleteRecord(selectedRows) {

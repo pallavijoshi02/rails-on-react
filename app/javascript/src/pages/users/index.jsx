@@ -89,7 +89,7 @@ class UserList extends React.Component {
     }
 
     addRecord() {
-        this.props.history.push('/user-form/new');
+        this.props.history.push('/user/user-form/new');
     }
 
     deleteRecord(selectedRows) {
