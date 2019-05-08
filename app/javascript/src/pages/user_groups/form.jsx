@@ -122,7 +122,7 @@ class UserGroupForm extends React.Component {
             }).then((resp) => {
                 this.props.pushSuccess(resp.data.success, { hideLoader: true })
                 if (resp.status == 200) {
-                    this.props.history.push('/user-groups');
+                    this.props.history.push('/user/user-groups');
                 }
 
             }).catch((err) => {

@@ -139,7 +139,7 @@ class UserForm extends React.Component {
             }).then((resp) => {
                 this.props.pushSuccess(resp.data.success, { hideLoader: true })
                 if (resp.status == 200) {
-                    this.props.history.push('/users');
+                    this.props.history.push('/user/users');
                 }
 
             }).catch((err) => {
