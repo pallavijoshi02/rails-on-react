@@ -60,7 +60,7 @@ class Flash extends React.Component {
                     </IconButton>
                 ]} ContentProps={{
                     classes: {
-                        root: `w-mx100 flex-nowrap text-dark ${flashBGClass(mode)}`,
+                        root: `w-mx100 flex-nowrap text-light ${flashBGClass(mode)}`,
                     }
                 }}
             />
