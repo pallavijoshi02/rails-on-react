@@ -94,11 +94,13 @@ en:
         heading: Edit User
         submit: Update
       fields:
+        group: Group
         name: Name
         email: Email
         contact: Contact
         password: Password
       errors:
+        group: Please select group
         name: Please enter name
         email: Please enter email
         contact: Please enter contact

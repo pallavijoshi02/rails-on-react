@@ -11,6 +11,8 @@ import IconButton from '@material-ui/core/IconButton';
 import BackIcon from '@material-ui/icons/ArrowBack';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
@@ -51,6 +53,7 @@ const styles = theme => ({
 });
 
 const INITIAL_FIELDS = {
+    group: '',
     name: '',
     email: '',
     contact: '',
@@ -58,12 +61,11 @@ const INITIAL_FIELDS = {
 }
 
 const INITIAL_STATE = {
-    title: 'Users Form',
-    submitText: 'Update',
     validated: false,
     fields: INITIAL_FIELDS,
     errors: INITIAL_FIELDS,
-    user: []
+    user: [],
+    groups: []
 }
 
 class UserForm extends React.Component {
@@ -74,6 +76,7 @@ class UserForm extends React.Component {
         if (this.isEdit) {
             this.getData();
         }
+        this.getGroups();
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -94,6 +97,24 @@ class UserForm extends React.Component {
                 self.setState({
                     fields,
                     errors: []
+                });
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always executed
+            });
+    }
+
+    getGroups() {
+        self = this
+
+        api.app.get('/user_groups')
+            .then(function (response) {
+                self.setState({
+                    groups: response.data.results
                 });
             })
             .catch(function (error) {
@@ -126,6 +147,7 @@ class UserForm extends React.Component {
             const method = this.isNew ? 'post' : 'put';
 
             const formData = new FormData();
+            formData.append("user[group_id]", this.state.fields.group)
             formData.append("user[name]", this.state.fields.name)
             formData.append("user[email]", this.state.fields.email)
             formData.append("user[contact]", this.state.fields.contact)
@@ -200,7 +222,8 @@ class UserForm extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { validated } = this.state;
+        const { validated, groups } = this.state;
+        console.log(groups)
         return (
             <React.Fragment>
                 <Toolbar className='w-100'>
@@ -220,9 +243,26 @@ class UserForm extends React.Component {
                             <Paper className={classes.paper}>
                                 <form className={classes.form} noValidate validated={validated.toString()} onSubmit={this.handleSubmit}>
 
+                                    <FormControl margin="normal" required fullWidth error={this.state.errors.group ? true : false}>
+                                        <InputLabel htmlFor="group">{I18n.t('user.form.fields.group')}</InputLabel>
+                                        <Select
+                                            autoFocus
+                                            value={this.state.fields.group}
+                                            onChange={this.handleInputChange}
+                                            input={<Input name="group" id="group" />}
+                                        >
+                                            {groups && groups.map((group) => {
+                                                return (
+                                                    <MenuItem value={group.id}>{group.name}</MenuItem>
+                                                )
+                                            })}
+                                        </Select>
+                                        {this.state.errors.group && <FormHelperText>{this.state.errors.group}</FormHelperText>}
+                                    </FormControl>
+
                                     <FormControl margin="normal" required fullWidth error={this.state.errors.name ? true : false}>
                                         <InputLabel htmlFor="name">{I18n.t('user.form.fields.name')}</InputLabel>
-                                        <Input id="name" name="name" autoComplete="name" autoFocus value={this.state.fields.name} onChange={this.handleInputChange} />
+                                        <Input id="name" name="name" autoComplete="name" value={this.state.fields.name} onChange={this.handleInputChange} />
                                         {this.state.errors.name && <FormHelperText>{this.state.errors.name}</FormHelperText>}
                                     </FormControl>
 
