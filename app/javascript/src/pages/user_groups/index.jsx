@@ -87,6 +87,9 @@ class UserGroupList extends React.Component {
     addRecord() {
         this.props.history.push('/user/user-group-form/new');
     }
+    reloadRecord() {
+        this.getData();
+    }
 
     deleteRecord(selectedRows) {
         if (selectedRows.data.length) {
@@ -106,7 +109,7 @@ class UserGroupList extends React.Component {
             rowsPerPage: 10,
             customToolbar: () => {
                 return (
-                    <CustomToolbar addRecord={() => { this.addRecord() }} />
+                    <CustomToolbar addRecord={() => { this.addRecord() }} reloadRecord={() => { this.reloadRecord() }} />
                 );
             },
             customToolbarSelect: selectedRows => (

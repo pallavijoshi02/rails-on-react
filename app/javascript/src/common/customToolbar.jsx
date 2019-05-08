@@ -2,6 +2,7 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import { withStyles } from '@material-ui/core/styles';
 
 const defaultToolbarStyles = {
@@ -12,13 +13,18 @@ const defaultToolbarStyles = {
 class CustomToolbar extends React.Component {
 
     render() {
-        const { classes, addRecord } = this.props;
+        const { classes, addRecord, reloadRecord } = this.props;
         return (
             <React.Fragment>
                 <Tooltip title={I18n.t('actions.add')}>
                     <IconButton className={classes.iconButton} onClick={addRecord}>
                         <AddIcon />
-                    </IconButton>
+                    </IconButton>                    
+                </Tooltip>
+                <Tooltip title={I18n.t('actions.refresh')}>
+                    <IconButton className={classes.iconButton} onClick={reloadRecord}>
+                        <RefreshIcon />
+                    </IconButton>                    
                 </Tooltip>
             </React.Fragment>
         );
