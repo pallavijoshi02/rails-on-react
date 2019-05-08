@@ -50,11 +50,13 @@ class API {
                     return e.response.data.error
                 }
                 if (!!e.response.data.errors) {
+                    if (!!e.response.data.errors.errors) {
+                        return e.response.data.errors.errors
+                    }
                     return e.response.data.errors[0]
                 }                
-                if (!!e.response.data.errors.errors) {
-                    return e.response.data.errors.errors[0]
-                }                
+                                
+                                
             }
         } catch (err) {
             console.error(err)

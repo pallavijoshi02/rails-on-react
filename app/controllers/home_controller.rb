@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate_request  
+  skip_before_action :authenticate_request
 
   def index
   end
@@ -10,10 +10,9 @@ class HomeController < ApplicationController
       expires: 1.year.from_now,
     }
     if cookies[:lang].blank?
-      render json: { success: "language not changed" }, status: :ok        
+      render json: { success: "language not changed" }, status: :ok
     else
       render json: { success: "language changed" }, status: :ok
     end
   end
-
 end

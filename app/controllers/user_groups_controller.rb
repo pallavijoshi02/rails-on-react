@@ -1,7 +1,7 @@
 class UserGroupsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:index, :show, :create, :update, :destroy]
-  
-  def index    
+
+  def index
     begin
       @user_groups = UserGroup.all
       render json: { success: "loading...", results: @user_groups }, status: :ok
@@ -9,7 +9,6 @@ class UserGroupsController < ApplicationController
       render json: { error: exception.message }, status: :unprocessable_entity
     end
   end
-
 
   def show
     begin
@@ -73,5 +72,4 @@ class UserGroupsController < ApplicationController
   def user_group_params
     params.require(:user_group).permit(:name, :permision)
   end
-
 end

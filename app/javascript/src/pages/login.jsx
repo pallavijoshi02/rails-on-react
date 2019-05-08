@@ -59,7 +59,7 @@ const INITIAL_FIELDS = {
     password: ''
 }
 
-const INITIAL_STATE = {    
+const INITIAL_STATE = {
     validated: false,
     fields: INITIAL_FIELDS,
     errors: INITIAL_FIELDS,
@@ -111,8 +111,8 @@ class LoginForm extends React.Component {
                     window.location.replace('/dashboard')
                 }
 
-            }).catch((err) => {
-                this.props.pushError(api.parseError(err), { hideLoader: true })
+            }).catch((err) => {                
+                this.props.pushError(api.parseError(err), { hideLoader: true })                
             })
         } else {
             this.setState({ validated: true });

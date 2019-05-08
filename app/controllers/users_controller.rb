@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:index, :show, :create, :update, :destroy]
-  
+
   def index
     begin
       @users = User.all
-      render json: { success: I18n.t('loading'), users: @users }, status: :ok
+      render json: { success: I18n.t("loading"), users: @users }, status: :ok
     rescue => exception
       render json: { error: exception.message }, status: :unprocessable_entity
     end
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     begin
       if User.exists?(id: params[:id])
         @user = User.find(params[:id])
-        render json: { success: "loading...", user: @user }, status: :ok
+        render json: { success: I18n.t("loading"), user: @user }, status: :ok
       else
         render json: { error: "record not found" }, status: :unprocessable_entity
       end
