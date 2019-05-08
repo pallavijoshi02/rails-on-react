@@ -70,3 +70,7 @@ gem 'simple_command'
 
 gem 'rails-i18n'
 gem 'i18n-js'
+
+group :commandline do
+  gem 'highline', '~> 1.7', '>= 1.7.8'
+end
